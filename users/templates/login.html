@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static 'css/login.css' %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Connectify . Login</title>
+</head>
+<body>
+    <div class="authlogin">
+        <div class="loginContainer">
+            <div class="loginWrap">
+                <div class="loginLeft">
+                    <div class="leftWrapper">
+                        <div class="leftHeader">
+                            <i class='bi bi-chat-fill' style="font-size : '2.3rem'"></i>
+                            <h1>Connectify</h1>
+                        </div>
+
+                        <div class="left-wel-mes">
+                            <h3>Hey there 👋, Welcome Back. Login to chat with your friends & colleagues</h3>
+                        </div>
+
+                        <div class="leftimage">
+                            <img src={% static 'images/login.svg' %} alt="login image"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="appLine"></div>
+
+                <div class="loginRight">
+                    <div class="loginrightform">
+                        <form onsubmit="loginUser()" method="post">
+                            {% csrf_token %}
+                            <div class="loginform">
+                                <div class="formhead">
+                                    <div class="sm-head" style="color:'#cccccc88'">
+                                        <p>Start For Free</p>
+                                    </div>
+
+                                    <div class="bghead">
+                                        <h2>Login to We-Chat</h2>
+                                    </div>
+                                </div>
+
+                                <div class="formi">
+                                    <div class="actualform">
+                                        <div class="finputs">
+                                            <div class="inputs">
+                                                <div class="username">
+                                                    <label for="username">Username</label>
+                                                    <input 
+                                                    type="text" 
+                                                    name='username' 
+                                                    id='username'
+                                                    />
+                                                    <i class='bi bi-person'></i>
+                                                </div>
+
+                                                <div class="password">
+                                                    <label for="password">Password</label>
+
+                                                    <input 
+                                                    type='password'
+                                                    name='password' 
+                                                    id='password'
+                                                    />
+
+                                                    <i class='bi bi-lock'></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="slayer">
+                                                <div class="viewpassword">
+                                                    <div class="slide">
+                                                        <input type="checkbox" name="viewPassword" id="view" hidden />
+                                                        <label for="view" id="switch"></label>
+                                                    </div>
+
+                                                    <div class="s-text">
+                                                        <p>Show Password</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fpassword">
+                                                    <span>Forgotten Password ?</span>
+                                                    <a href="">Reset</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="sub">
+                                            <div class="loginbutton">
+                                                <button>Sign In</button>
+                                            </div>
+
+                                            <div class="registerp">
+                                                <span>Don&apos; have an account ?</span>
+                                                <a href="/users/register/">Register</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src={% static 'JS/login.js' %} ></script>
+</body>
+</html>
