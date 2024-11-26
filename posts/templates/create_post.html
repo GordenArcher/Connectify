@@ -1,26 +1,66 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post . </title>
+    <link rel="stylesheet" href={% static 'CSS/create.css/' %}>
+    <title>Connectify . Create Post </title>
 </head>
 <body>
-    <div>
-        <h1>POST PAGE</h1>
-        {% for message in messages %}
-        <h3>{{message}}</h3>
-        {% endfor %}
+    {% for message in messages %}
+    <h3>{{message}}</h3>
+    {% endfor %}
 
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+    <div class="c_p">
+        {% include 'base/base.html/' %}
+        <div class="create_post">
+            <div class="create">
+                <div class="create_new">
+                    <div class="create_left">
+                        <div class="create_left_image">
+                            <img src={% static 'images/th.svg' %} alt="create image">
+                        </div>
+                    </div>
+                    <div class="create_right">
+                        <div class="create_right_wrap">
+                            <div class="create_right_head">
+                                <h3>Time to shine! Upload your content and share it with the world.</h3>
+                            </div>
 
-            <input type="text" name="description" id="description"> <br> <br>
-            <input type="file" name="image" accept="image/*" ><br><br>
+                            <div class="cre_new">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
 
-            <input type="submit" value="Post">
-        </form>
+                                    <div class="u">
+                                        <div class="upload_desc ui">
+                                            <label for="description">Say something about your post</label>
+                                            <input type="text" name="description" id="description"> <br> <br>
+                                        </div>
+
+                                        <div class="upload_media ui">
+                                            <label for="image">Upload your post</label>
+                                            <input type="file" id="media" name="media" accept="image/*, video/*" ><br><br>
+                                        </div>
+
+                                        <div class="post_but">
+                                            <button>Post</button>
+                                        </div>
+                                    </div>
+                        
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
+
+    <!-- <script src={% static 'JS/create.js/' %}></script> -->
 </body>
 </html>

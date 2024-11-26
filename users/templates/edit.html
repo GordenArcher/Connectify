@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href={% static "CSS/profile.css" %}>
+    <title>Connectify . Profile Edit</title>
+</head>
+<body>
+    <div class="pop_edit">
+        <form method="post">
+            {% csrf_token %}
+            <div class="edit_profile">
+                <div class="post">
+                    <div class="cover_img">
+                        <div class="c_i">
+                            {% if profile.cover_picture %}
+                            <img src={{ profile.cover_picture.url }} />
+                            {% else %}
+                            <div class="empt_cover em2">
+                                <div>NO COVER IMAGE</div>
+                            </div>
+                            {% endif %}
+                        </div>
+    
+                        <div class="co">
+                            <input type="file" name="cover" accept="image/*" id="setCoverPic" />
+                            <label for="setCoverPic">
+                                <i class="bi bi-images"></i>
+                            </label>
+                        </div>
+                    </div>
+        
+                    <div class="profile_img">
+                        <div class="p_i">
+                            {% if profile.profile_picture %}
+                            <img src={{ profile.profile_picture.url }} />
+                            {% else %}
+                            <img src={% static 'images/avatar-4.png' %} alt="user profile image" />
+                            {% endif %}
+                        </div>
+    
+                        <div class="p">
+                            <input type="file" name="profile" accept="image/*" id="setProfilePic" hidden />
+                            <label for="setProfilePic">
+                                <i class="bi bi-images"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="edit_items">
+                    <div class="e_i">
+                        <div class="a_e_items">
+                            <ul>
+                                <li>
+                                    <div class="edit_bio">
+                                        <div class="e_a_b">
+                                            <label for="bio"> Bio</label>
+                                            <textarea name="bio" id="bio" value={{user.profile.bio}}></textarea>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="edit_bio">
+                                        <div class="e_a_b">
+                                            <label for="bio"> Username</label>
+                                            <input name="usernames" id="username" value={{user.username}} />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="edit_bio">
+                                        <div class="e_a_b">
+                                            <label for="bio" >Email</label>
+                                            <input type="text" name="email" value={{user.email}} id="email" />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="save_edit">
+                            <div class="save">
+                                <button>
+                                    <p>Save</p> 
+                                    <i class="bi bi-save2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

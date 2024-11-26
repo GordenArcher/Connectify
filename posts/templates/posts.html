@@ -5,18 +5,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
+    <link rel="stylesheet" href={% static "CSS/posts.css" %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Connectify . Posts Feed</title>
 </head>
 <body>
-    {% for post in allpost %}
-    <img src={{ post.image.url }} alt="">
-    <h2>{{post.content}}</h2>
-    {% endfor %}
-
-    <h1>HI</h1>
-
-    <h2>{{username}}</h2>
-
-    <a href="/posts/create">Create a Post</a>
+        {% include 'base/base.html' %}
+        <div class="all-post">
+            <div class="posts_container">
+                <div class="all_content">
+                    <div class="all_grid">
+                        {% for post in allpost %}
+                        <div class="post_al">
+                            <div class="post_wrap">
+                                <div class="post_media">
+                                    <div class="media">
+                                        {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="Post image">
+                                        {% elif post.video %}
+                                        <video controls>
+                                            <source src="{{ post.video.url }}" type="video/mp4">
+                                        </video>
+                                        {% else %}
+                                            <p>No media available.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+    
+                                {% if post.content %}
+                                    <div class="post_descc">
+                                        <div class="desp">
+                                            <span>{{post.content}}</span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 </body>
 </html>

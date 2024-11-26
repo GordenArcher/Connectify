@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.c_p{
+    width: 100%;
+    height: 100vh;
+}
+
+.create_post, .create_right_wrap, .post_but{
+    padding: 20px;
+}
+
+.create, .create_new, .create_left, .create_right, .cre_new, .cre_new form, .u,
+.ui, .post_but{
+    width: 100%;
+    height: 100%;
+}
+
+.create_new{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create_left_image{
+    width: 70%;
+    margin: 40px auto;
+}
+
+.create_left_image img, .create_left_image video{
+    width: 100%;
+    height: 100%;
+}
+
+.create_right_wrap, .u, .ui{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cre_new{
+    margin-top: 40px;
+}
+
+.u{
+    gap: 40px;
+}
+
+.ui label{
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: hsl(241, 97%, 24%);
+}
+
+.upload_desc input{
+    width: 100%;
+    height: 50px;
+    padding: 17px;
+    font-size: 1.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+}
+
+.post_but button{
+    width: 100%;
+    height: 50px;
+    background: hsl(241, 97%, 24%);
+    color: hsl(0, 0%, 100%);
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

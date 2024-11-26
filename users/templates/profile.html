@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "CSS/profile.css" %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Connectify . Profile</title>
+</head>
+<body>
+    {% include "base/base.html" %}
+    <div class="profile_page">
+        <div class"profile_content">
+            <div class="profile_wrapper">
+                <div class="profile_set">
+                    <div class="profile_md">
+                        <div class="pro_pic">
+                            <div class="cover_pro_pic">
+                                <div class="cover_profile">
+                                    {% if profile.cover_picture %}
+                                    <img src={{ profile.cover_picture.url }} />
+                                    {% else %}
+                                    <div class="empt_cover">
+                                        <div>NO COVER IMAGE</div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="actual_pro_pic">
+                                <div class="main_profile">
+                                    {% if profile.profile_picture %}
+                                        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+                                    {% else %}
+                                        <img src={% static "images/avatar-4.png" %} alt="Default Profile Picture">
+                                    {% endif %}
+
+                                    <div class="set_pic">
+                                        <form method="post" enctype="multipart/form-data">
+                                            <input type="file" name="profile" accept="image/*" id="setProfilePic" hidden />
+                                            <label for="setProfilePic">
+                                                <div class="file_choose">
+                                                    <i class="bi bi-images"></i>
+                                                </div>
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user_info">
+                            <div class="user__">
+                                <div class="info_wrap">
+                                    <div class="inf_">
+                                        <ul>
+                                            <li>
+                                                <div class="bio">
+                                                    <div class="user_bio see">
+                                                        {% if profile.bio %}
+                                                        <div>Bio</div>
+                                                        <div class="user_d">{{ profile.bio }}</div>
+                                                        {% else %}
+                                                        <div><p>This user has not set a bio yet.</p></div>
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="see">
+                                                    <div class="ui">
+                                                        <div>Username: </div>
+                                                    </div>
+                                                    <div class="a_d">
+                                                        <div class="user_d">
+                                                            {% if profile.user %}
+                                                                <div>@{{profile.user.username}}</div>
+                                                                {% else %}
+                                                                <p>You don't have a username ???</p>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="see">
+                                                    <div class="ui">
+                                                        <div>Followers </div>
+                                                    </div>
+                                                    <div class="a_d">
+                                                        <div class="user_d">
+                                                            16.1M
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="see">
+                                                    <div class="ui">
+                                                        <div>Following </div>
+                                                    </div>
+                                                    <div class="a_d">
+                                                        <div class="user_d">
+                                                            50
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="edit_profile">
+                                    <div class="edit_profile__">
+                                        <button class="edit_profile_button">
+                                            <div>Edit</div>
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="u_p">
+                    <div class="my_posts">
+                        <div class="my_posts_head">
+                            <div class="head" style="text-align : center; font-size : 2rem";>
+                                <h3>My POST</h3>
+                            </div>
+                        </div>
+                        <div class="all-post">
+                            <div class="posts_container">
+                                <div class="all_content">
+                                    <div class="all_grid">
+                                        {% for posts in user_posts %}
+                                        <div class="post_al">
+                                            <div class="post_wrap">
+                                                <div class="post_media">
+                                                    <div class="media">
+                                                        {% if posts.image %}
+                                                        <img src="{{ posts.image.url }}" alt="Post image">
+                                                        {% elif posts.video %}
+                                                        <video controls>
+                                                            <source src="{{ posts.video.url }}" type="video/mp4">
+                                                        </video>
+                                                        {% else %}
+                                                            <p>No media available.</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                        
+                                                {% if posts.content %}
+                                                    <div class="post_descc">
+                                                        <div class="desp">
+                                                            <span>{{posts.content}}</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                                    <div>No posts available.</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>    
+
+
+
+

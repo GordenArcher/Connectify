@@ -1,0 +1,157 @@
+{% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href={% static 'CSS/base.css' %}>
+      
+</head>
+<body>
+    <nav class="nav_bar">
+        <div class="top_nav">
+            <div class="show" >
+                <button onclick="showSide()">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="user_view">
+                <div class="view_details">
+                    <div class="welcome" id="welcome"></div>
+                    <div class="view_user_name">
+                        <span>{{user.username}} !</span>
+                    </div>
+                    <div class="view_profile_image">
+                        <div class="view_profile">
+                            {% if user.is_authenticated and user.profile.profile_picture %}
+                                <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                            {% else %}
+                                <img src="/static/images/avatar-4.png" alt="Default Profile Picture">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="sidebar">
+        <div class="hide" id="hide" onclick="removeSide()">
+            <button>
+                <i class="bi bi-arrow-left"></i>
+            </button>
+        </div>
+        <aside>
+            <div class="side_nav">
+                <div class="nav">
+                    <div class="side_logo">
+                        <div class="logo">
+                            <h4>Connectify</h4>
+                        </div>
+                    </div>
+
+                    <div class="side_links">
+                        <div class="links">
+                            <ul>
+                                <li>
+                                    <a href="/posts/feed/">
+                                        <div class="tabs">
+                                            <div class="icon">
+                                                <i class="bi bi-house"></i>
+                                            </div>
+    
+                                            <div class="nav_link">
+                                                <div class="act_link">
+                                                    Home
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/posts/feed/">
+                                        <div class="tabs">
+                                            <div class="icon">
+                                                <i class="bi bi-chat-square"></i>
+                                            </div>
+    
+                                            <div class="nav_link">
+                                                <div class="act_link">
+                                                    Messages
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+    
+                                <li>
+                                    <a href="/posts/feed/">
+                                        <div class="tabs">
+                                            <div class="icon">
+                                                <i class="bi bi-person-raised-hand"></i>
+                                            </div>
+    
+                                            <div class="nav_link">
+                                                <div class="act_link">
+                                                    Friends
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% if user.is_authenticated %}
+                                <li>
+                                    <a href="{% url 'profile' user.username %}">
+                                        <div class="tabs">
+                                            <div class="icon">
+                                                <i class="bi bi-person"></i>
+                                            </div>
+                            
+                                            <div class="nav_link">
+                                                <div class="act_link">
+                                                    Profile
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endif %}
+                                <li>
+                                    <a href="/posts/create/">
+                                        <div class="tabs">
+                                            <div class="icon">
+                                                <i class="bi bi-folder-plus"></i>
+                                            </div>
+    
+                                            <div class="nav_link">
+                                                <div class="act_link">
+                                                    Create
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="side_bottom">
+                        <div class="side_bottom_wrap">
+                            <div class="side_botton_settings">
+                                <div class="setting_gear" onclick="navigate()">
+                                    <button>
+                                        <i class="bi bi-gear"></i>
+                                    </button>
+                                    <span>Settings</span>
+                                </div>
+                            </div>
+
+                            <div class="profile_img">
+                                <div class="set_profile">
+                                    <img src="{% static 'images/profile.jpg' %}" alt="profile image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <script src={% static "JS/base.js" %}></script>

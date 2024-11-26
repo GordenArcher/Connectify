@@ -3,6 +3,9 @@ from django.http import response
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.core.mail import send_mail
+from .models import Profile
+from posts.models import Posts
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register(request):
@@ -73,4 +76,71 @@ def logout(request):
     
     except Exception as e:
         messages.error(request, f" Coul'nt logout{e}")
+
+    return render(request, "logout.html")        
   
+
+
+@login_required
+def profile(request, username):
+    user = User.objects.get(username=username)
+
+    try:
+        my_posts = Posts.objects.filter(user=user)
+        profile_info = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile_info = None
+
+
+
+    context = {
+        "user_posts" : my_posts,
+        "profile": profile_info,
+    }
+
+    return render(request, 'profile.html', context )
+
+
+@login_required
+def edit_profile(request, username):
+    user = User.objects.get(username=username)
+    profile_info = Profile.objects.get(user=user)
+
+    if request.method == "POST":
+        profile_picture = request.FILES.get("profile")
+        cover_picture = request.FILES.get("cover")
+        bio = request.POST.get("bio")
+        usernames = request.POST.get("username")
+        email = request.POST.get("email")
+
+        try:
+            if profile_picture:
+                existing_profile = Profile.objects.get(user=user)
+                existing_profile.profile_picture.delete()
+                existing_profile.delete()
+
+                new_profile = Profile.objects.create(profile_picture=profile_picture)
+                new_profile.save()
+            if cover_picture:
+                profile_info.cover_picture = cover_picture
+            if bio:
+                profile_info.bio = bio
+            profile_info.save()
+
+            if usernames:
+                user.username = usernames
+            if email:
+                user.email = email
+            user.save()
+
+            messages.success(request, "Profile updated successfully!")
+            return redirect("profile_view", username=user.username)
+
+        except Exception as e:
+            messages.error(request, f"Error saving your changes: {e}")
+
+    context = {
+        "profile": profile_info,
+        "user": user,
+    }
+    return render(request, "edit.html", context)

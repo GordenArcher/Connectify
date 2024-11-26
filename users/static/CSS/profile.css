@@ -1,0 +1,329 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.all-post, .posts_container, .all_content, .all_grid, .post_al, .post_wrap, .profile_page, .profile_content,
+.profile_set, .profile_md, .pro_pic, .cover_pro_pic, .cover_profile, .actual_pro_pic, .set_cover,
+.set_cover_i, .info_wrap, .inf_, .edit_items, .e_i, .edit_bio, .save_edit{
+    width: 100%;
+    height: 100%;
+}
+
+.posts_container, .post_al, .profile_wrapper{
+    padding: 20px;
+}
+
+.cover_pro_pic, .empt_cover{
+    height: 300px;
+    position: relative;
+}
+
+.em2{
+    height: 130px;
+}
+
+.empt_cover{
+    width: 100%;
+    background: hsl(241, 97%, 24%);
+    border-radius: 6px;
+    z-index: -1;
+}
+
+.empt_cover > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.3rem;
+    color: hsl(0, 0%, 100%);
+}
+
+.cover_profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+a{
+    text-decoration: none;
+    color: hsl(0, 0%, 0%);
+}
+
+.all_grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 10px;
+}
+
+.post_wrap, .profile_md, .profile_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.post_media{
+    position: relative;
+}
+
+.media{
+    padding: 5px;
+    width: 100%;
+    height: 500px;
+}
+
+.media img, .media video{
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.profile_md{
+    gap: 30px;
+}
+
+.main_profile, .p_i{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: -30px 0 0 30px;
+    background: hsl(241, 97%, 24%);
+    z-index: 5;
+}
+
+.main_profile img, .p_i img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user_info{
+    padding: 50px;
+}
+
+.set_pic, .c{
+    position: relative;
+    margin: -40px 0 0 0px;
+}
+
+.file_choose, .c label{
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: hsl(0, 89%, 46%);
+}
+
+.file_choose i{
+    background: hsl(241, 97%, 24%);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.set_cover{
+    background: rgba(255, 0, 0, 0.123);
+    position: absolute;
+    top: 0;
+    border-radius: 6px;
+}
+
+.set_cover_i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.set_cover_i label i{
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+
+.user__{
+    background: #cfcfcf;
+    border-radius: 6px;
+    padding: 20px;
+    position: relative;
+}
+
+.inf_ ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+
+.inf_ ul li{
+    width: 100%;
+    padding: 13px;
+    border-radius: 4px;
+    transition: .3s ease;
+}
+
+
+.inf_ ul li .see{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.inf_ ul li .see .ui{
+    color: hsla(241, 97%, 24%, 0.286);
+}
+
+.inf_ ul li .a_d{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.edit_profile{
+    position: relative;
+    max-width: 500px;
+    margin: 10px auto;
+    border: 1px solid rgb(164, 164, 164);
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.edit_profile__{
+    padding: 30px;
+}
+
+.edit_profile_button{
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: hsl(0, 0%, 100%);
+    font-size: 1.2rem;
+    border: none;
+    background: hsl(241, 97%, 24%);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.edit_profile_button .bi, .save button .bi {
+    animation: moveUpDown 2s ease-in-out infinite;
+}
+
+@keyframes moveUpDown {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px); 
+    }
+    100% {
+        transform: translateY(0); 
+    }
+}
+
+
+.pop_edit{
+    width: 100%;
+    height: 100vh;
+}
+
+.cover_img, .profile_img, .a_e_items, .save{
+    position: relative;
+}
+
+.co{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+}
+
+.co label{
+    padding: 5px;
+    color: hsl(0, 0%, 100%);
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.co input{
+    position: relative;
+    z-index: 2;
+}
+
+.p{
+    margin-left: 30px;
+    margin-top: -30px;
+}
+
+.p label{
+    background: hsl(241, 97%, 24%);
+    border-radius: 50%;
+    color: hsl(0, 0%, 100%);
+    padding: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.a_e_items, .save_edit{
+    padding-top: 30px;
+}
+
+.a_e_items ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+
+.a_e_items ul li{
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.a_e_items ul li .edit_bio{
+    width: 100%;
+    font-size: 1.3rem;
+}
+
+.a_e_items ul li .edit_bio .e_a_b{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.a_e_items ul li .edit_bio .e_a_b input, textarea{
+    width: 100%;
+    height: 55px;
+    border: 1px solid hsla(241, 97%, 24%, 0.286);
+    border-radius: 4px;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    padding: 15px;
+}
+
+.a_e_items ul li .edit_bio .e_a_b textarea{
+    height: 100px;
+    resize: none;
+}
+
+.save button{
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+    background: hsl(241, 97%, 24%);
+    color: hsl(0, 0%, 100%);
+    border: none;
+    transition: .3s ease;
+    cursor: pointer;
+    border-radius: 4px;
+}
