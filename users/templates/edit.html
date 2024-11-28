@@ -10,10 +10,17 @@
     <title>Connectify . Profile Edit</title>
 </head>
 <body>
+    <div id="toast-container">
+        {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    {% include 'base/base.html' %}
     <div class="pop_edit">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="edit_profile">
+            <div class="edit_profile_p">
                 <div class="post">
                     <div class="cover_img">
                         <div class="c_i">
@@ -27,7 +34,7 @@
                         </div>
     
                         <div class="co">
-                            <input type="file" name="cover" accept="image/*" id="setCoverPic" />
+                            <input type="file" name="cover" accept="image/*" id="setCoverPic" hidden />
                             <label for="setCoverPic">
                                 <i class="bi bi-images"></i>
                             </label>
@@ -85,7 +92,7 @@
 
                         <div class="save_edit">
                             <div class="save">
-                                <button>
+                                <button id="save_edit">
                                     <p>Save</p> 
                                     <i class="bi bi-save2"></i>
                                 </button>
@@ -96,5 +103,7 @@
             </div>
         </form>
     </div>
+
+    <script src={% static "JS/profile.js" %}></script>
 </body>
 </html>

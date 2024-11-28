@@ -36,23 +36,27 @@
                                     {% else %}
                                         <img src={% static "images/avatar-4.png" %} alt="Default Profile Picture">
                                     {% endif %}
-
-                                    <div class="set_pic">
-                                        <form method="post" enctype="multipart/form-data">
-                                            <input type="file" name="profile" accept="image/*" id="setProfilePic" hidden />
-                                            <label for="setProfilePic">
-                                                <div class="file_choose">
-                                                    <i class="bi bi-images"></i>
-                                                </div>
-                                            </label>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="user_info">
                             <div class="user__">
+                                {% if user != profile.user %}
+                                <div class="user_count">
+                                    <div class="follw_user ou">
+                                        <div class="cur_user oub">
+                                            <button>Follow</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="message_user ou">
+                                        <div class="mess_u oub">
+                                            <button>Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <div class="info_wrap">
                                     <div class="inf_">
                                         <ul>
@@ -113,6 +117,7 @@
                                     </div>
                                 </div>
 
+                                {% if user == profile.user %}
                                 <div class="edit_profile">
                                     <div class="edit_profile__">
                                         <button class="edit_profile_button">
@@ -121,6 +126,9 @@
                                         </button>
                                     </div>
                                 </div>
+                                {% else %}
+                                <div></div>
+                                {% endif %}
                             </div>
                         </div>
                         
@@ -165,7 +173,7 @@
                                             </div>
                                         </div>
                                         {% empty %}
-                                                    <div>No posts available.</div>
+                                             <div>No posts available.</div>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -176,9 +184,8 @@
             </div>
         </div>
     </div>
+    <script src={% static "JS/profile.js" %}></script>
+    
 </body>
-</html>    
-
-
-
+</html> 
 

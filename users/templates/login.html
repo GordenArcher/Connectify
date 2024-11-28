@@ -9,6 +9,11 @@
     <title>Connectify . Login</title>
 </head>
 <body>
+    <div id="toast-container">
+        {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+        {% endfor %}
+    </div>
     <div class="authlogin">
         <div class="loginContainer">
             <div class="loginWrap">

@@ -9,9 +9,11 @@
     <title>Connectify . Create Post </title>
 </head>
 <body>
-    {% for message in messages %}
-    <h3>{{message}}</h3>
-    {% endfor %}
+    <div id="toast-container">
+        {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+        {% endfor %}
+    </div>
 
     <div class="c_p">
         {% include 'base/base.html/' %}
@@ -40,8 +42,8 @@
                                         </div>
 
                                         <div class="upload_media ui">
-                                            <label for="image">Upload your post</label>
-                                            <input type="file" id="media" name="media" accept="image/*, video/*" ><br><br>
+                                            <label for="image" id="media">Upload your post</label>
+                                            <input type="file" id="media" name="media" accept="image/*, video/*" multiple ><br><br>
                                         </div>
 
                                         <div class="post_but">
@@ -58,9 +60,7 @@
         </div>
 
 
-
     </div>
-
-    <!-- <script src={% static 'JS/create.js/' %}></script> -->
+    <script src={% static 'JS/create.js/' %}></script>
 </body>
 </html>

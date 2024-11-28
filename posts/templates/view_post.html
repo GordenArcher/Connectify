@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "CSS/view.css" %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Connectify . Feed View</title>
+</head>
+<body>
+    {% include "base/base.html" %}
+    <div class="back_button">
+        <div class="back_">
+            <button class="back_button">
+            <i class="bi bi-arrow-left-circle"></i>
+            </button>
+        </div>
+    </div>
+    <div class="view_post">
+        <div class="post_wrap">
+            <div class="post_container">
+                <div class="left_view_post">
+                    <div class="view_post_media">
+                        <div class="_view_l_med">
+                            {% if this_post.image %}
+                                <img src="{{ this_post.image.url }}" alt="Post image">
+                            {% elif this_post.video %}
+                            <video controls>
+                                <source src="{{ this_post.video.url }}" type="video/mp4">
+                            </video>
+                            {% else %}
+                                <p>No media available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <form class="form" method="post" data-url="{% url 'like_post' this_post.id %}">
+                        {% csrf_token %}
+                        <div class="likes_q">
+                            <div class="likes">
+                                <button name="like" class="like_post" id="likebtn">
+                                    <i name="heart" class="bi bi-heart" id="likeIcon">
+                                        <div class="red"></div>
+                                    </i>
+                                </button>
+                            </div>
+    
+                            <div class="like_amo">
+                                <div class="like__nu">
+                                    <span class="likes_number">{{this_post.likes.count}} likes</span>
+                                </div>
+
+                                <div class="comment_num">
+                                    <span>{{comments.count}} . comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    {% if this.content %}
+                    <div class="caption_cont">
+                        <div class="caption">
+                            <h4>{{this_post.content}}</h4>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="right_view_post" style="position : relative;">
+                    <div class="comments_box">
+                        <div class="right_content">
+                            <div class="comments">
+                                {% if comments %}
+                                <div class="al_users_co">
+                                    <div class="comment_flex">
+                                        {% for comment in comments %}
+                                            <div class="all_coments">
+                                                <div class="comments_all">
+                                                    <div class="comment_user_profile">
+                                                        <div class="comment_profile" onclick="location.pathname = `/profile/@{{user}}`">
+                                                            {% if comment.user.profile.profile_picture %}
+                                                                <img src="{{ comment.user.profile.profile_picture.url }}" alt="{{ comment.user.username }}'s profile" />
+                                                            {% else %}
+                                                                <img src="default-profile-pic.jpg" alt="Default profile picture" />
+                                                            {% endif %}
+
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="user_comment">
+                                                        <div class="u_c_usn">
+                                                            <div class="u_c_n">
+                                                                <div class="user-name">
+                                                                    <span>{{comment.user}}</span>
+                                                                </div>
+                                                            </div>
+            
+                                                            <div class="actua_comme">
+                                                                <div class="comment_text">
+                                                                    <span>{{comment.content}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="empty_comment">
+                                    <div class="empt">
+                                        <div class="empty_comment_icon"> 
+                                            <i class="bi bi-chat-fill"></i>
+                                        </div>
+                                        <div class="empty_comment_mess">
+                                            <div class="empt-mess">
+                                                <h4>Be the first to comment</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="write_comment">
+                                <form method="post" class="comment_form" data-url="{% url 'comment_post' this_post.id %}">
+                                    {% csrf_token %}
+                                    <div class="comment_input_area">
+                                        <div class="comment_input">
+                                            <div class="comm_i">
+                                                <textarea class="com_box" name="comment" id="comment_box" placeholder="Comment on this post"></textarea>
+                                            </div>
+                                        </div>
+    
+                                        <div class="comen_se">
+                                            <button id="comment_on_post">
+                                                <div class="send_comment_icon">
+                                                    <i class="bi bi-send"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="{% static "JS/view.js" %}"></script>
+</body>
+</html>

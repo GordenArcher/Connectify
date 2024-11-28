@@ -7,7 +7,7 @@
 
 .all-post, .posts_container, .all_content, .all_grid, .post_al, .post_wrap, .profile_page, .profile_content,
 .profile_set, .profile_md, .pro_pic, .cover_pro_pic, .cover_profile, .actual_pro_pic, .set_cover,
-.set_cover_i, .info_wrap, .inf_, .edit_items, .e_i, .edit_bio, .save_edit{
+.set_cover_i, .info_wrap, .inf_, .edit_items, .e_i, .edit_bio, .save_edit, .c_i{
     width: 100%;
     height: 100%;
 }
@@ -19,6 +19,7 @@
 .cover_pro_pic, .empt_cover{
     height: 300px;
     position: relative;
+    z-index: -1;
 }
 
 .em2{
@@ -41,11 +42,20 @@
     color: hsl(0, 0%, 100%);
 }
 
-.cover_profile img{
+.cover_profile{
+    z-index: -1;
+}
+
+.cover_profile img, .c_i img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 6px;
+    z-index: -1;
+}
+
+.c_i img{
+    height: 130px;
 }
 
 a{
@@ -100,6 +110,10 @@ a{
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.main_profile img{
+    z-index: 3;
 }
 
 .user_info{
@@ -182,7 +196,7 @@ a{
     font-size: 1.2rem;
 }
 
-.edit_profile{
+.edit_profile_p{
     position: relative;
     max-width: 500px;
     margin: 10px auto;
@@ -192,6 +206,13 @@ a{
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.edit_profile{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
 }
 
 .edit_profile__{
@@ -238,10 +259,11 @@ a{
 }
 
 .co{
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    float: right;
+    margin-top: -20px;
     padding: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 .co label{
@@ -250,6 +272,9 @@ a{
     font-size: 1rem;
     cursor: pointer;
     position: relative;
+    background: hsl(241, 97%, 24%);
+    border-radius: 50%;
+    padding: 14px;
 }
 
 .co input{
@@ -326,4 +351,29 @@ a{
     transition: .3s ease;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.user_count{
+    float: right;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user_count .ou{
+    position: relative;
+    padding: 5px;
+}
+
+.user_count .ou .oub button{
+    width: 100px;
+    height: 45px;
+    padding: 12px;
+    font-size: 1.1rem;
+    background: hsl(241, 97%, 24%);
+    color: hsl(0, 0%, 100%);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }

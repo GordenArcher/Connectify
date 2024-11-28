@@ -10,6 +10,12 @@
     <title>Connectify . Posts Feed</title>
 </head>
 <body>
+    <div id="toast-container">
+        {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+        {% endfor %}
+    </div>
+
         {% include 'base/base.html' %}
         <div class="all-post">
             <div class="posts_container">
@@ -19,7 +25,7 @@
                         <div class="post_al">
                             <div class="post_wrap">
                                 <div class="post_media">
-                                    <div class="media">
+                                    <div style="cursor: pointer;" class="media" onclick="location.assign('/posts/feed/{{post.id}}/view_post/')">
                                         {% if post.image %}
                                             <img src="{{ post.image.url }}" alt="Post image">
                                         {% elif post.video %}
@@ -31,7 +37,7 @@
                                         {% endif %}
                                     </div>
                                 </div>
-    
+
                                 {% if post.content %}
                                     <div class="post_descc">
                                         <div class="desp">
@@ -39,6 +45,53 @@
                                         </div>
                                     </div>
                                 {% endif %}
+
+                                <div class="attent">
+                                    <div class="engage">
+                                        <div class="like_but eng">
+                                            <form method="post" class="like_cou engCount" id="like-form" data-url="{% url 'like_post' post.id %}">
+                                                {% csrf_token %}
+                                                {% if request.user in post.likes.all %}
+                                                <button id="like-btn" name="like" class="liked">
+                                                    <i name="heart" class="bi bi-heart-fill" id="likeIcon">
+                                                        <div class="red"></div>
+                                                    </i>
+                                                </button>
+                                                {% else %}
+                                                <button id="like-btn" name="like">
+                                                    <i name="heart" class="bi bi-heart" id="likeIcon">
+                                                        <div class="red"></div>
+                                                    </i>
+                                                </button>
+                                                {% endif %}
+        
+                                                <div class="like_count engactcou">
+                                                    <div class="li_c">
+                                                        {% if post.likes.count == 1 %}
+                                                        <span id="likes-count">{{post.likes.count}} . like</span>
+                                                        {% else %}
+                                                        <span id="likes-count">{{post.likes.count }} . likes</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="comment_but eng">
+                                            <div style="cursor: pointer;" class="comment_cou engCount" onclick="location.assign('/posts/feed/{{post.id}}/view_post/')">
+                                                <button name="comments" class="commentButton">
+                                                    <i class="bi bi-chat" id="commentIcon"></i>
+                                                </button>
+        
+                                                <div class="comment_count engactcou">
+                                                    <div class="co_c">
+                                                        <span>{{post.comments.count}} . comments</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -46,6 +99,6 @@
                 </div>
             </div>
         </div>
-    </script>
+    <script src={% static 'JS/posts_feed.js' %}></script>
 </body>
 </html>

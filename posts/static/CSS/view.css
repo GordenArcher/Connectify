@@ -1,0 +1,224 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.view_post, .post_wrap, .post_container, .left_view_post, .right_view_post, .view_post_media, 
+.comments_box, .right_content, .comments, .write_comment, .comment_input_area, .comment_input, 
+.comm_i, .empty_comment, .al_users_co, .comment_flex{
+    width: 100%;
+    height: 100%;
+}
+
+.comments{
+    height: 600px;
+    overflow: scroll;
+}
+
+::-webkit-progress-bar{
+    display: none;
+}
+
+.back_button{
+    width: 50px;
+    padding: 10px;
+}
+
+.post_wrap, .comments, .empt, .al_users_co{
+    padding: 20px;
+    position: relative;
+}
+
+.post_container, .likes_q, .empt{
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.left_view_post, .right_content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right_view_post{
+    max-width: 500px;
+}
+
+._view_l_med{
+    height: 600px;
+    position: relative;
+}
+
+._view_l_med img, ._view_l_med video{
+    width: 60%;
+    height: 100%;
+    border-radius: 6px;
+    position: relative;
+}
+
+._view_l_med video{
+    width: 100%;
+    height: 500px;
+}
+
+.like__nu, .comment_num{
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: hsl(0, 0%, 59%);
+}
+
+.comments{
+    border: 1px solid rgb(181, 181, 181);
+    border-radius: 6px;
+}
+
+.comment_input_area, .likes_q{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.comm_i textarea{
+    width: 100%;
+    height: 50px;
+    border: 1px solid hsl(241, 97%, 24%);
+    border-radius: 6px;
+    resize: none;
+    padding: 12px;
+    font-size: 1.2rem;
+    color: hsl(0, 0%, 0%);
+    outline: none;
+}
+
+.comen_se button{
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: hsl(241, 97%, 24%);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.empt{
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.empty_comment, .like_amo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like_amo{
+    gap: 30px;
+}
+
+.empty_comment_icon{
+    font-size: 2rem;
+}
+
+.empty_comment_icon i{
+    color: hsl(241, 97%, 24%);
+}
+
+.back_{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.back_ button{
+    padding: 5px;
+    font-size: 2rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.back_ button i{
+    color: hsl(241, 97%, 24%);
+}
+
+.back_ button:hover{
+    background: hsl(0, 0%, 72%);
+}
+
+.likes_q{
+    gap: 10px;
+}
+
+.like_post{
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    border: none;
+    background: none;
+    transition: .3s ease;
+    position: relative; 
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.like_post i{
+    color: hsl(241, 97%, 24%);
+}
+
+.like_post button:active {
+    transform: scale(0.9); 
+}
+
+.comment_flex, .u_c_usn{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 4px;
+}
+
+.u_c_usn{
+    gap: 5px;
+}
+
+.all_coments{
+    position: relative;
+}
+
+.comments_all{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment_user_profile{
+    padding: 5px;
+}
+
+.comment_profile{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.comment_profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+}
+
+.user-name{
+    font-size: .8rem;
+    font-size: 500;
+    color: hsl(241, 97%, 24%);
+}

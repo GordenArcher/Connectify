@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from .models import Profile
 from posts.models import Posts
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 # Create your views here.
 def register(request):
@@ -103,8 +104,8 @@ def profile(request, username):
 
 @login_required
 def edit_profile(request, username):
-    user = User.objects.get(username=username)
-    profile_info = Profile.objects.get(user=user)
+    user =  User.objects.get(username=username)
+    profile_info, _ = Profile.objects.get_or_create(user=user)
 
     if request.method == "POST":
         profile_picture = request.FILES.get("profile")
@@ -114,27 +115,25 @@ def edit_profile(request, username):
         email = request.POST.get("email")
 
         try:
-            if profile_picture:
-                existing_profile = Profile.objects.get(user=user)
-                existing_profile.profile_picture.delete()
-                existing_profile.delete()
+            with transaction.atomic():
+                if profile_picture:
+                    if profile_info.profile_picture:
+                        profile_info.profile_picture.delete()
+                    profile_info.profile_picture = profile_picture
+                if cover_picture:
+                    profile_info.cover_picture = cover_picture
+                if bio:
+                    profile_info.bio = bio
+                profile_info.save()
 
-                new_profile = Profile.objects.create(profile_picture=profile_picture)
-                new_profile.save()
-            if cover_picture:
-                profile_info.cover_picture = cover_picture
-            if bio:
-                profile_info.bio = bio
-            profile_info.save()
-
-            if usernames:
-                user.username = usernames
-            if email:
-                user.email = email
-            user.save()
+                if usernames:
+                    user.username = usernames
+                if email:
+                    user.email = email
+                user.save()
 
             messages.success(request, "Profile updated successfully!")
-            return redirect("profile_view", username=user.username)
+            return redirect("profile", username=user.username)
 
         except Exception as e:
             messages.error(request, f"Error saving your changes: {e}")
@@ -143,4 +142,5 @@ def edit_profile(request, username):
         "profile": profile_info,
         "user": user,
     }
+
     return render(request, "edit.html", context)
