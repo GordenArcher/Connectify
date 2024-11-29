@@ -7,7 +7,7 @@ from django.http import JsonResponse
 import json
 
 def feed(request):
-    all_posts = Posts.objects.all().order_by("created_at")
+    all_posts = Posts.objects.all().order_by("-created_at")
     context = {
         "allpost": all_posts
     }
@@ -18,12 +18,14 @@ def feed(request):
 @login_required
 def create(request):
     if request.method == "POST":
-        content = request.POST.get('description') 
-        media = request.FILES.get('media')
+        content = request.POST.get("caption") 
+        media = request.FILES.get("media")
 
         if not media:
-            messages.error(request, "Media is empty")
-            return redirect("create")
+            return JsonResponse({
+                "status":"error",
+                "message":"Media is empty. Please upload a media"
+            }, status=400)
 
         file_type, _ = mimetypes.guess_type(media.name)
 
@@ -36,18 +38,28 @@ def create(request):
                 create_post = Posts.objects.create(user=request.user, content=content, video=media)
 
             else:
-                messages.error(request, "Invalid media type. Please upload an image or a video.")
-                return redirect("create")
+                return JsonResponse({
+                    "status":"error",
+                    "message":"Invalid media type. Please upload an image or a video."
+                }, status=400)
 
             create_post.save()
-            messages.success(request, "Your post was successful")
-            return redirect("create")
+            return JsonResponse({
+                    "status":"sucess",
+                    "message":"Your post was successful."
+            }, status=201)
 
         except Exception as e:
-            messages.error(request, f"Error posting: {e}")
-            return redirect("create")
+            return JsonResponse({
+                    "status":"error",
+                    "message":f"Error posting: {e}"
+            }, status=500)
 
-    return render(request, 'create_post.html')
+    else:
+        return JsonResponse({
+            "status":"error",
+            "message":"Invalid request method."
+        }, status=400)
             
 
 
@@ -123,4 +135,4 @@ def comment_post(request, comment_id):
     return JsonResponse({
         "status": "error",
         "message": "Invalid request method."
-    }, status=405)  # Method not allowed
+    }, status=405) 

@@ -1,26 +1,45 @@
-function showToast(message) {
-    const toastContainer = document.getElementById("toast-container") || document.createElement("div");
-    if (!toastContainer.id) {
-        toastContainer.id = "toast-container";  
-        document.body.appendChild(toastContainer); 
-    }
+// function showToast(message) {
+//     const toastContainer = document.getElementById("toast-container") || document.createElement("div");
+//     if (!toastContainer.id) {
+//         toastContainer.id = "toast-container";  
+//         document.body.appendChild(toastContainer); 
+//     }
 
-    const toast = document.createElement("div");
-    toast.classList.add("toast");
-    toast.textContent = message;
+//     const toast = document.createElement("div");
+//     toast.classList.add("toast");
+//     toast.textContent = message;
 
-    toastContainer.appendChild(toast);
+//     toastContainer.appendChild(toast);
 
-    toast.style.transition = "opacity 0.5s ease";
-    toast.style.opacity = 1;
+//     toast.style.transition = "opacity 0.5s ease";
+//     toast.style.opacity = 1;
 
-    setTimeout(() => {
-        toast.style.opacity = 0;  
+//     setTimeout(() => {
+//         toast.style.opacity = 0;  
 
-        setTimeout(() => {
-            toast.remove();
-        }, 500); 
-    }, 2000);  
+//         setTimeout(() => {
+//             toast.remove();
+//         }, 500); 
+//     }, 2000);  
+// }
+
+function showAlert( text ) {
+
+    Toastify({
+        text: text,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: false,
+        gravity: "top", 
+        position: "center",
+        stopOnFocus: true, 
+        style: {
+          background: "#333",
+        },
+        onClick: function(){}
+      }).showToast()
+    
 }
 
 document.querySelectorAll('#like-btn i').forEach((like) => {
@@ -56,11 +75,11 @@ document.querySelectorAll('#like-btn i').forEach((like) => {
                     likesCount.textContent = `${data.likes_count} ${data.likes_count === 1 ? "like" : "likes"}`;
                 }
 
-                showToast(data.message)
+                showAlert(data.message)
 
 
             } else {
-                alert(data.message);
+                showAlert(data.message);
             }
         })
         .catch(error => console.error("Error:", error));

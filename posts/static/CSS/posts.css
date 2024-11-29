@@ -5,13 +5,22 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.all-post, .posts_container, .all_content, .all_grid, .post_al, .post_wrap, .attent, .engage{
+.all-post, .posts_container, .all_p_con, .all_content, .all_p_flex, .post_al, .post_wrap, .attent, 
+.engage, .post_uplod, .do_smth,.upload_user, .options_upload, .uplo_options, .option_first,
+.i_pop_wrap, .i_pop_image_display, .i_pop_image_post, .i_pop_image_post_cont label, .main_image_display,
+.i_pop_image_ccaption, #image-preview, #video-preview{
     width: 100%;
     height: 100%;
 }
 
-.posts_container, .post_al{
+.posts_container, .post_al, .upload, .image_form{
     padding: 20px;
+}
+
+.post_al, .upload{
+    background: #fff;
+    box-shadow: 0 0 5px 3px #eee;
+    border-radius: 4px;
 }
 
 a{
@@ -19,20 +28,21 @@ a{
     color: hsl(0, 0%, 100%);
 }
 
-.all_grid{
+.all_p_con{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 60% 40%;
     gap: 20px;
-    margin: 10px;
+    padding: 10px;
 }
 
-.post_wrap{
+
+.post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display{
     display: flex;
     flex-direction: column;
     gap: 14px;
 }
 
-.post_media, .engage, .eng{
+.post_media, .engage, .eng, .user_del, .user_w_p_d_name, .option_sec{
     position: relative;
 }
 
@@ -45,5 +55,185 @@ a{
 .media img, .media video{
     width: 100%;
     height: 100%;
+    border-radius: 6px;
+}
+
+.user_w_p_del, .optio_second, .fl, .i_pop_post button{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.fl{
+    gap: 12px;
+}
+
+.upload_user, .all_content, .i_pop_wrap{
+    display: flex;
+    gap: 20px;
+}
+
+.user_w_p_prof, .upla_user_profile{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user_w_p_prof img, .upla_user_profile img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+}
+
+.user_w_p_d_name{
+    color: hsla(241, 97%, 24%, 0.582);
+    font-family: 600;
+    font-size: 1.3rem;
+}
+
+.onl_txt_b textarea{
+    width: 100%;
+    height: 100px;
+    resize: none;
     border-radius: 4px;
+    font-size: 1.2rem;
+    padding: 10px;
+    outline: none;
+    border: 1px solid hsla(241, 97%, 24%, 0.582);
+}
+
+.upl_image button, .upload_video button, .upload_poll button{
+    padding: 10px;
+    border: none;
+    background: hsla(241, 97%, 24%);
+    border-radius: 20px;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.upload_image_popup, .upload_video_popup{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: hsla(0, 0%, 0%, 0.464);
+    display: none;
+}
+
+.pop_image_container{
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: hsl(0, 0%, 100%);
+    border-radius: 4px;
+}
+
+.i_pop_head{
+    text-align: center;
+    font-size: 1.2rem;
+
+}
+
+.i_pop_image_post_cont{
+    width: 100%;
+    height: 300px;
+    border: 1px dashed hsla(241, 97%, 24%, 0.582);
+    border-radius: 4px;
+}
+
+.i_pop_image_post_cont label{
+    display: block;
+}
+
+.main_image_display{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.3rem;
+}
+
+.main_image_display i{
+    color: hsla(241, 97%, 24%);
+}
+
+.i_pop_cap, .i_pop_post{
+    padding-top: 20px;
+}
+
+.i_pop_cap{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.i_pop_cap label{
+    font-size: 1.2rem;
+    color: hsla(241, 97%, 24%, 0.582);
+    font-weight: 500;
+}
+
+.i_pop_cap textarea{
+    width: 100%;
+    height: 100px;
+    border: 1px solid hsla(241, 97%, 24%, 0.582);
+    background: transparent;
+    font-size: 1.1rem;
+    padding: 15px;
+    outline: none;
+    resize: none;
+    border-radius: 4px;
+    transition: .3s ease;
+}
+
+.i_pop_cap textarea:focus{
+    border: 1px solid hsla(241, 97%, 24%);
+}
+
+.i_pop_post button{
+    background: hsla(241, 97%, 24%);
+    color: hsl(0, 0%, 100%);
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    padding: 15px;
+    transition: .3s ease;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.i_pop_post button:hover{
+    background: hsla(241, 97%, 24%, 0.815);
+}
+
+#image-preview, #video-preview{
+    display: none;
+    object-fit: contain;
+}
+
+.cancel, .cancelv{
+    padding: 40px;
+    position: relative;
+    float: right;
+}
+
+.cancel button, .cancelv button{
+    padding: 10px;
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.cancel button:hover, .cancelv button:hover{
+    background: rgb(255, 0, 0);
+}
+
+.cancel button i, .cancelv button i{
+    color: rgb(253, 253, 255);
 }
