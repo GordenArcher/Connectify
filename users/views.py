@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import response
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
@@ -7,6 +7,7 @@ from .models import Profile
 from posts.models import Posts
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from .models import FriendRequest
 
 # Create your views here.
 def register(request):
@@ -144,3 +145,48 @@ def edit_profile(request, username):
     }
 
     return render(request, "edit.html", context)
+
+
+
+
+@login_required
+def send_friend_request(request, user_id):
+    to_user = get_object_or_404(User, id=user_id)
+    
+    if FriendRequest.objects.filter(from_user=request.user, to_user=to_user).exists():
+        messages.error(request, "Friend request already sent.")
+    elif request.user == to_user:
+        messages.error(request, "You cannot send a friend request to yourself.")
+    else:
+        FriendRequest.objects.create(from_user=request.user, to_user=to_user)
+        messages.success(request, f"Friend request sent to {to_user.username}.")
+
+    return redirect('messages') 
+
+
+@login_required
+def view_friend_requests(request):
+    friend_requests = FriendRequest.objects.filter(to_user=request.user, is_accepted=False)
+    return render(request, 'posts/posts.html', {'friend_requests': friend_requests})
+
+
+@login_required
+def accept_friend_request(request, request_id):
+    friend_request = get_object_or_404(FriendRequest, id=request_id, to_user=request.user)
+
+    friend_request.is_accepted = True
+    friend_request.save()
+    messages.success(request, f"You are now friends with {friend_request.to_user.username}.")
+
+    return redirect('messages')
+
+
+
+@login_required
+def reject_friend_request(request, request_id):
+    friend_request = get_object_or_404(FriendRequest, id=request_id, to_user=request.user)
+
+    friend_request.delete()
+    messages.success(request, "Friend request rejected.")
+
+    return redirect('messages')

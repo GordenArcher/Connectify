@@ -166,9 +166,117 @@
                         </div>
                     </div>
 
-                    <div class="friends_req_view"></div>
+                    <div class="friends_req_view">
+                        <div class="new_friends">
+                            <div class="new_frie_head">
+                                <h3>Friend Request</h3>
+
+                            </div>
+                            {% for request in friend_requests %}
+                            <div class="main_friands">
+                                <div class="fiends_req">
+                                    <h3>GORDEN</h3>
+                                    <div class="friends_flesa">
+                                        <div class="fri_reqa">
+                                            <div class="friend_profile">
+                                                <img src="{{ user.profile.profile_picture.url }}" alt="friends's profile ">
+                                            </div>
+
+                                            <div class="friend_use_nam">
+                                                <div class="_f_na">
+                                                    <h3>GORDEN</h3>
+                                                    <span>{{ request.from_user.username }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="frie_options">
+                                                <div class="opt_req">
+                                                    <div class="accept opt">
+                                                        <div class="frined_accept">
+                                                            <a href="{% url 'accept_friend_request' request.id %}">
+                                                                <button>
+                                                                    <i class="bi bi-check-circle"></i>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="decline opt">
+                                                        <div class="friend_decline">
+                                                            <a href="{% url 'reject_friend_request' request.id %}">
+                                                                <button>
+                                                                    <i class="bi bi-x-circle"></i>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div>NO requests</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="friends_req_view">
+                            <div class="new_friends">
+                                <div class="new_frie_head">
+                                    <h3>Add Friends</h3>
+                                </div>
+    
+                                <div class="main_friands">
+                                    <div class="fiends_req">
+                                        {% for user in users %}
+                                        {% if user != request.user %}
+                                        <div class="friends_flesa">
+                                            <div class="fri_reqa">
+                                                <div class="friend_profile">
+                                                    <img src="{{ user.profile.profile_picture.url }}" alt="friends's profile ">
+                                                </div>
+    
+                                                <div class="friend_use_nam">
+                                                    <div class="_f_na">
+                                                        <span>{{ user.username }}</span>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="frie_options">
+                                                    <div class="opt_req">
+                                                        <div class="accept opt">
+                                                            <div class="frined_accept">
+                                                                <a href="{% url 'send_friend_request' user.id %}">
+                                                                    <button>
+                                                                        <i class="bi bi-check-circle"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="decline opt">
+                                                            <div class="friend_decline">
+                                                                <a href="{% url 'reject_friend_request' request.id %}">
+                                                                    <button>
+                                                                        <i class="bi bi-x-circle"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
 
         <div class="upload_image_popup">

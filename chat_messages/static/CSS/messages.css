@@ -1,0 +1,339 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.messages{
+    width: 100%;
+    height: 90vh;
+}
+
+.chatbox, .boxcontainer, .chatwrapper, .leftchatboxwrap,
+.leftsearchlist, .listfriends, .listswrap, .liscontainer, .message_container, .message_ui_wrapper, 
+.message_ui_grid, .chat_left, .friend_chat_display, .chat_view, .new_friends,  .friends_search,
+.fre_sear, .friendss_, .c_f_fle, .act_friends, .left_friend_s, .chat_view, .chat_view_friend,
+.user_chat_head, .empt_chat, .empt_friends, .empt_frind_wrap, .friends_req_view,
+.fri_reqa{
+    width: 100%;
+    height: 100%;
+}
+
+.message_ui_grid{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    gap: 10px;
+    padding: 10px;
+}
+
+.left_friend_s, .c_f_fle{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.fre_sear{
+    position: relative;
+}
+
+.fre_sear input{
+    width: 100%;
+    height: 50px;
+    padding: 15px 50px 15px 15px;
+    outline: none;
+    border: 1px solid hsla(241, 97%, 24%, 0.35);
+    border-radius: 4px;
+    font-size: 1.1rem;
+    transition: .3s ease;
+}
+
+.fre_sear input:focus{
+    border: 1px solid hsl(241, 97%, 24%);
+}
+
+.fre_sear i{
+    position: absolute;
+    color: hsl(241, 97%, 24%);
+    right: 20px;
+    top: 14px;
+    font-size: 1.3rem;
+}
+
+.c_f_fle{
+    gap: 1px;
+}
+
+.friend_chat_display, .chat_view{
+    border-right: 1px solid hsl(241, 97%, 24%);
+}
+
+.act_friends{
+    height: 70vh;
+    overflow: auto;
+    padding-bottom: 15px;
+}
+
+.chatwrapper, .liscontainer, .leftmessoverview{
+    display: flex;
+    flex-direction: row;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.leftbox{
+    width: 25%;
+    height: 100vh;
+    position: relative;
+    background: hsl(0, 0%, 0%);
+    padding: 20px 10px;
+    overflow-y: scroll;
+}
+
+.tabi{
+    width: 5%;
+    background: hsla(0, 0%, 0%);
+    border-right: 1px solid hsla(241, 97%, 24%, 0.582);
+}
+
+.leftchatboxwrap, .leftchatheader, .listswrap, .messTime{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.leftchatheader{
+    position: sticky;
+    top: -20px;
+    background: hsl(0, 0%, 0%);
+    z-index: 9;
+}
+
+.lefthead{
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.searchlistfriends {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.liscontainer{
+    cursor: pointer;
+    align-items: center;
+    transition: .3s ease;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.liscontainer:hover{
+    background: hsla(0, 0%, 0%, 0.09);
+}
+
+.listswrap, .liscontainer{
+    gap: 10px;
+}
+
+.friendProfile img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid hsla(0, 0%, 85%, 0.32);
+}
+
+.leftmessoverview{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vieww{
+    color: hsla(0, 0%, 0%, 0.395);
+}
+
+.Timeset{
+    font-size: .8rem;
+}
+
+.messTime{
+    padding-left: 30px;
+}
+
+.messTime{
+    gap: 5px;
+    align-items: center;
+}
+
+.messNum{
+    position: relative;
+}
+
+.numcount{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: hsl(241, 97%, 24%);
+    color: hsl(0, 0%, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .7rem;
+}
+
+.fiends_req{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat_view_friend, .empt_chat_message, .fiends_req{
+    padding: 10px;
+}
+
+.empt_chat_message{
+    color: hsl(241, 97%, 24%);
+}
+
+.empt_chat_message i{
+    color: hsl(241, 97%, 24%);
+}
+
+.empt_chat, .empt_frind_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+.empt_chat_img, .empt_chat_message, .empt_frind_wrap, .empt_friends_img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empt_chat_img img{
+    width: 60%;
+}
+
+.empt_friends_img img{
+    width: 100%;
+}
+
+.empt_chat_message, .empt_frind_wrap{
+    flex-direction: column;
+}
+
+.new_friends{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.friends_req_view{
+    background: #fff;
+    box-shadow: 0 0 5px 3px #eee;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.nf{
+    color: hsl(241, 97%, 24%);
+    font-size: 1.4rem;
+}
+
+.cancel, .cancelv{
+    padding: 30px;
+    position: relative;
+    float: right;
+}
+
+.cancel button, .cancelv button{
+    padding: 10px;
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.cancel button:hover, .cancelv button:hover{
+    background: rgb(255, 0, 0);
+}
+
+.cancel button i, .cancelv button i{
+    color: rgb(253, 253, 255);
+}
+
+.new_frie_head{
+    font-size: 1rem;
+}
+
+.opt button{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 50%;
+    background: hsla(241, 97%, 24%);
+    border: none;
+    color: hsl(0, 0%, 100%);
+    cursor: pointer;
+}
+
+.opt button i{
+    font-size: 1.3rem;
+}
+
+.decline button{
+    background: #eee;
+}
+
+.decline button i{
+    color: hsl(0, 100%, 50%);
+}
+
+.fri_reqa{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.friend_profile{
+    width: 55px;
+    height: 55px;
+}
+
+.friend_profile img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+}
+
+._f_na{
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.opt_req{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.3rem;
+}
+
+.new_frie_head{
+    color: hsla(241, 97%, 24%, 0.582);
+    font-family: 600;
+    font-size: 1rem;
+    padding: 10px;
+}

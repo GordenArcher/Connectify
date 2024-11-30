@@ -8,16 +8,20 @@
 .all-post, .posts_container, .all_p_con, .all_content, .all_p_flex, .post_al, .post_wrap, .attent, 
 .engage, .post_uplod, .do_smth,.upload_user, .options_upload, .uplo_options, .option_first,
 .i_pop_wrap, .i_pop_image_display, .i_pop_image_post, .i_pop_image_post_cont label, .main_image_display,
-.i_pop_image_ccaption, #image-preview, #video-preview{
+.i_pop_image_ccaption, #image-preview, #video-preview, .new_friends, .main_friands, .opt_req, .friends_flesa{
     width: 100%;
     height: 100%;
 }
 
-.posts_container, .post_al, .upload, .image_form{
+.all-post, .posts_container{
+    padding: 30px;
+}
+
+.post_al, .upload, .image_form, .new_friends{
     padding: 20px;
 }
 
-.post_al, .upload{
+.post_al, .upload, .friends_req_view{
     background: #fff;
     box-shadow: 0 0 5px 3px #eee;
     border-radius: 4px;
@@ -30,38 +34,41 @@ a{
 
 .all_p_con{
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
     gap: 20px;
     padding: 10px;
 }
 
 
-.post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display{
+.post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display,
+.new_friends{
     display: flex;
     flex-direction: column;
     gap: 14px;
 }
 
-.post_media, .engage, .eng, .user_del, .user_w_p_d_name, .option_sec{
+.post_media, .engage, .eng, .user_del, .user_w_p_d_name, .option_sec, .new_frie_head{
     position: relative;
 }
 
 .media{
     padding: 5px;
-    width: 100%;
-    height: 500px;
 }
 
 .media img, .media video{
     width: 100%;
-    height: 100%;
+    height: 600px;
     border-radius: 6px;
 }
 
-.user_w_p_del, .optio_second, .fl, .i_pop_post button{
+.user_w_p_del, .optio_second, .fl, .i_pop_post button, .fri_reqa{
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.fri_reqa{
+    justify-content: space-between;
 }
 
 
@@ -69,18 +76,23 @@ a{
     gap: 12px;
 }
 
-.upload_user, .all_content, .i_pop_wrap{
+.upload_user, .all_content, .i_pop_wrap, .new_friends{
     display: flex;
     gap: 20px;
 }
 
-.user_w_p_prof, .upla_user_profile{
+.user_w_p_prof, .upla_user_profile, .friend_profile{
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
 
-.user_w_p_prof img, .upla_user_profile img{
+.friend_profile{
+    width: 55px;
+    height: 55px;
+}
+
+.user_w_p_prof img, .upla_user_profile img, .friend_profile img{
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -88,10 +100,16 @@ a{
     position: relative;
 }
 
-.user_w_p_d_name{
+.user_w_p_d_name, .new_frie_head, ._f_na{
     color: hsla(241, 97%, 24%, 0.582);
     font-family: 600;
     font-size: 1.3rem;
+}
+
+._f_na{
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+    font-weight: 800;
 }
 
 .onl_txt_b textarea{
@@ -148,7 +166,7 @@ a{
     display: block;
 }
 
-.main_image_display{
+.main_image_display, .opt_req{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,4 +254,36 @@ a{
 
 .cancel button i, .cancelv button i{
     color: rgb(253, 253, 255);
+}
+
+.friends_req_view{
+    width: 100%;
+    height: 400px;
+}
+
+.new_frie_head{
+    font-size: 1rem;
+}
+
+.opt button{
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 50%;
+    background: hsla(241, 97%, 24%);
+    border: none;
+    color: hsl(0, 0%, 100%);
+    cursor: pointer;
+}
+
+.opt button i{
+    font-size: 1.5rem;
+}
+
+.decline button{
+    background: #eee;
+}
+
+.decline button i{
+    color: hsl(0, 100%, 50%);
 }

@@ -2,31 +2,31 @@ from django.contrib import admin
 from .models import Posts, Like, Comment
 
 # Register your models here.
-class PostsAmin(admin.ModelAdmin):
+class PostsAdmin(admin.ModelAdmin):
     list_display = ["user", "content", "image", "video", "created_at"]
     search_fields = ["user", "content", "created_at"]
 
     def __str__(self):
-        return self.user()
+        return self.content 
     
 
-class LikeAmin(admin.ModelAdmin):
+class LikeAdmin(admin.ModelAdmin):
     list_display = ["user", "post", "liked_at"]
     search_fields = ["user", "post", "liked_at"]
 
     def __str__(self):
-        return self.user()
+        return self.user
     
 
-class CommentAmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = ["user",  "post", "content", "commented_at"]
     search_fields = ["user", "post", "content", "commented_at"]
 
     def __str__(self):
-        return self.user()
+        return self.user
     
 
 
-admin.site.register(Posts, PostsAmin)    
-admin.site.register(Like, LikeAmin)    
-admin.site.register(Comment, CommentAmin)    
+admin.site.register(Posts, PostsAdmin)    
+admin.site.register(Like, LikeAdmin)    
+admin.site.register(Comment, CommentAdmin)    
