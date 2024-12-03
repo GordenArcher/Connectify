@@ -1,27 +1,3 @@
-// function showToast(message) {
-//     const toastContainer = document.getElementById("toast-container") || document.createElement("div");
-//     if (!toastContainer.id) {
-//         toastContainer.id = "toast-container";  
-//         document.body.appendChild(toastContainer); 
-//     }
-
-//     const toast = document.createElement("div");
-//     toast.classList.add("toast");
-//     toast.textContent = message;
-
-//     toastContainer.appendChild(toast);
-
-//     toast.style.transition = "opacity 0.5s ease";
-//     toast.style.opacity = 1;
-
-//     setTimeout(() => {
-//         toast.style.opacity = 0;  
-
-//         setTimeout(() => {
-//             toast.remove();
-//         }, 500); 
-//     }, 2000);  
-// }
 
 function showAlert( text ) {
 
@@ -85,3 +61,31 @@ document.querySelectorAll('#like-btn i').forEach((like) => {
         .catch(error => console.error("Error:", error));
     });
 });
+
+document.querySelectorAll("#follow").forEach((follow) => {
+    follow.addEventListener("click", (e) => {
+        e.preventDefault()
+
+        const url = document.getElementById("follow").getAttribute("data-url")
+    
+        const form = document.querySelector(".follow_form")
+    
+        const csrfToken = form.querySelector("input[name=csrfmiddlewaretoken]").value; 
+    
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRFToken": csrfToken
+            }
+        })
+        .then(response => response.json())
+
+        .then((data) => {
+            console.log(data)
+            if(data.status == "success"){
+                showAlert(data.message)
+            }
+        })
+    })
+})

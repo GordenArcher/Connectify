@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Posts, Like, Comment
+from .models import Posts, Like, Comment, Follows
 
 # Register your models here.
 class PostsAdmin(admin.ModelAdmin):
-    list_display = ["user", "content", "image", "video", "created_at"]
-    search_fields = ["user", "content", "created_at"]
+    list_display = ["user", "content", "image", "video","text_post", "created_at"]
+    search_fields = ["user", "content", "text_post", "created_at"]
 
     def __str__(self):
         return self.content 
@@ -27,6 +27,16 @@ class CommentAdmin(admin.ModelAdmin):
     
 
 
+class FollowAdmin(admin.ModelAdmin):
+    list_display = ["user",  "follow", "followed_at"]
+    search_fields = ["user", "follow", "followed_at"]
+
+    def __str__(self):
+        return self.user
+    
+
+
 admin.site.register(Posts, PostsAdmin)    
 admin.site.register(Like, LikeAdmin)    
 admin.site.register(Comment, CommentAdmin)    
+admin.site.register(Follows, FollowAdmin)    

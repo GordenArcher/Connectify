@@ -113,19 +113,11 @@ transition: color 0.3s ease, transform 0.3s ease;
     color: hsl(0, 0%, 100%);
 }
 
-.setting_gear{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: .3s ease;
-    cursor: pointer;
-}
-
 .setting_gear span{
     font-size: 1.2rem;
 }
 
-.setting_gear button{
+.setting_gear button, .user_chat_head_user_name button, .chat_input_emoje button, .user_chat_send button{
     background: transparent;
     font-size: 1.7rem;
     width: 50px;
@@ -136,7 +128,8 @@ transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
-.setting_gear button:hover, .setting_gear:hover{
+.setting_gear button:hover, .user_chat_head_user_name button:hover, .chat_input_emoje button:hover,
+.user_chat_send button{
     background: hsla(0, 0%, 65%, 0.643);
 }
 
@@ -280,9 +273,8 @@ transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .liked #likeIcon{
-    color: red !important; 
+    color: hsl(241, 97%, 24%) !important; 
     animation: like 0.6s ease-in-out;
-    box-shadow: 0 0 10px 2px rgb(255, 0, 0); 
 }
 
 .engCount button #likeIcon, #commentIcon{

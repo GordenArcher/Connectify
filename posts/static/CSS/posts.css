@@ -8,7 +8,8 @@
 .all-post, .posts_container, .all_p_con, .all_content, .all_p_flex, .post_al, .post_wrap, .attent, 
 .engage, .post_uplod, .do_smth,.upload_user, .options_upload, .uplo_options, .option_first,
 .i_pop_wrap, .i_pop_image_display, .i_pop_image_post, .i_pop_image_post_cont label, .main_image_display,
-.i_pop_image_ccaption, #image-preview, #video-preview, .new_friends, .main_friands, .opt_req, .friends_flesa{
+.i_pop_image_ccaption, #image-preview, #video-preview, .opt_req, 
+.friends_flesa, .user_del, .grid-right, .empt_fr_req{
     width: 100%;
     height: 100%;
 }
@@ -27,6 +28,10 @@
     border-radius: 4px;
 }
 
+.friends_req_view{
+    height: 300px;
+}
+
 a{
     text-decoration: none;
     color: hsl(0, 0%, 100%);
@@ -40,43 +45,66 @@ a{
 }
 
 
-.post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display,
-.new_friends{
+.post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display, .new_friends,
+.grid-right, .fiends_req, .empt_fr_req_cont{
     display: flex;
     flex-direction: column;
     gap: 14px;
 }
 
-.post_media, .engage, .eng, .user_del, .user_w_p_d_name, .option_sec, .new_frie_head{
+.fiends_req{
+    overflow: auto;
+    padding: 5px;
+}
+
+.grid-right{
+    gap: 30px;
+}
+
+.post_media, .engage, .eng, .user_del, .user_w_p_d_name, .option_sec, .new_frie_head,
+.follow_button, .op_fir_textbox{
     position: relative;
 }
 
-.media{
+.empt_fr_req_img{
+    text-align: center;
+}
+
+.empt_fr_req_img img{
+    width: 40%;
+}
+
+.empt_fr_req_cont h2{
+    font-size: 1rem;
+    text-align: center;
+}
+
+.media, .user_del{
     padding: 5px;
 }
 
 .media img, .media video{
     width: 100%;
     height: 600px;
+    object-fit: cover;
     border-radius: 6px;
 }
 
-.user_w_p_del, .optio_second, .fl, .i_pop_post button, .fri_reqa{
+.user_w_p_del, .optio_second, .fl, .i_pop_post button, .fri_reqa, .user_del{
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.fri_reqa{
+.fri_reqa, .user_del{
     justify-content: space-between;
 }
-
 
 .fl{
     gap: 12px;
 }
 
-.upload_user, .all_content, .i_pop_wrap, .new_friends{
+.upload_user, .all_content, .i_pop_wrap{
     display: flex;
     gap: 20px;
 }
@@ -256,11 +284,6 @@ a{
     color: rgb(253, 253, 255);
 }
 
-.friends_req_view{
-    width: 100%;
-    height: 400px;
-}
-
 .new_frie_head{
     font-size: 1rem;
 }
@@ -286,4 +309,29 @@ a{
 
 .decline button i{
     color: hsl(0, 100%, 50%);
+}
+
+.post_text{
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    padding-left: 10px;
+}
+
+.post_text button{
+    padding: 5px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.post_text button i{
+    color: hsla(241, 97%, 24%);
+}
+
+.post_text button:hover{
+    background: #eee;
 }

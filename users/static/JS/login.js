@@ -9,3 +9,7 @@ togglepassword.addEventListener("click", () => {
         password_view.type = "password"
     }
 })
+
+// window.document.getElementById("click", () => {
+//     alert()
+// })

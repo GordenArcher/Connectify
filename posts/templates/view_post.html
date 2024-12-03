@@ -53,7 +53,7 @@
                                 </div>
 
                                 <div class="comment_num">
-                                    <span>{{comments.count}} . comments</span>
+                                    <span id="comment-count">{{comments.count}} . comments</span>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,6 @@
                                                             {% else %}
                                                                 <img src="default-profile-pic.jpg" alt="Default profile picture" />
                                                             {% endif %}
-
                                                         </div>
                                                     </div>
             
@@ -93,7 +92,11 @@
                                                         <div class="u_c_usn">
                                                             <div class="u_c_n">
                                                                 <div class="user-name">
+                                                                    {% if comment.user == request.user %}
+                                                                    <span>You</span>
+                                                                    {% else %}
                                                                     <span>{{comment.user}}</span>
+                                                                    {% endif %}
                                                                 </div>
                                                             </div>
             

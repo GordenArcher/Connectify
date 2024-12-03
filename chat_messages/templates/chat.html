@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={% static "CSS/messages.css" %}>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Connectify . Messages</title>
+    <title>Connectify . Messages Inbox</title>
 </head>
 <body>
     {% include "base/base.html" %}
@@ -15,6 +15,7 @@
     {% for message in messages %}
     {{message}}
     {% endfor %}
+    
     <div class="messages">
         <div class="message_container">
             <div class="message_ui_wrapper">
@@ -37,7 +38,7 @@
                                         <div class="c_f_fle">
                                             {% for accepted_friend in accepted_requests %}
                                             {% if accepted_friend.is_accepted %}
-                                            <div class="liscontainer" onclick="location.href = '/messages/chat/@{{accepted_friend.from_user.username}}/' ">
+                                            <div class="liscontainer" onclick="location.assign('/messages/chat/@{{accepted_friend.from_user.username}}') ">
                                                 <div class="friendProfile">
                                                     {% if accepted_friend.from_user.profile.profile_picture %}
                                                     <img src="{{ accepted_friend.from_user.profile.profile_picture.url }}" alt="friends's profile ">
@@ -97,20 +98,115 @@
                     </div>
 
                     <div class="chat_view">
+                        
+                        {% for request in accepted_requests %}
+                        {{ request.from_user.username|json_script:"room-name" }}
                         <div class="chat_view_friend">
-                            <div class="empt_chat">
-                                <div class="empt_chat_img">
-                                    <img src="{% static "images/empt_chat.svg" %}" alt="empty chat message" />
-                                </div>
+                            <div class="user_chat_head">
+                                <div class="user_chat_head_wrap">
+                                    <div class="user_chat_head_wrap_">
+                                        <div class="user_chat_head_wrap_image">
+                                            {% if request.from_user.profile.profile_picture %}
+                                            <img src="{{ request.from_user.profile.profile_picture.url }}" alt="{{request.from_user.username }}'s profile picture" />
+                                            {% else %}
+                                            <img src="{% static "images/avatar-4.png" %}" alt="{{request.from_user.username }}'s profile picture" />
+                                            {% endif %}
+                                            
+                                        </div> 
 
-                                <div class="empt_chat_message">
-                                    <div class="empt_chat_message">
-                                        <h2>Start a Conversation <i class="bi bi-chat"></i></h2>
+                                        <div class="user_chat_head_wrap_nom">
+                                            <div class="user_chat_head_namee">
+                                                <div class="user_chat_head_user_name">{{request.from_user.username}}</div>
+                                            </div>
+
+                                            <div class="user_chat_head_last_status">
+                                                <div class="user_chat_head_user_ls">
+                                                    <span class="_status_">Last seen 2:55 pm</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    Choose from your existing conversations, start a new one, or just keep swimming.
+
+                                    <div class="user_chat_head_namee">
+                                        <div class="user_chat_head_user_name">
+                                            <button>
+                                                <span>
+                                                    <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24"><title>menu</title><path fill="currentColor" d="M12,7c1.104,0,2-0.896,2-2c0-1.105-0.895-2-2-2c-1.104,0-2,0.894-2,2 C10,6.105,10.895,7,12,7z M12,9c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,9.895,13.104,9,12,9z M12,15 c-1.104,0-2,0.894-2,2c0,1.104,0.895,2,2,2c1.104,0,2-0.896,2-2C13.999,15.894,13.104,15,12,15z"></path></svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="user_chat_view">
+                                <div class="user_chat_view_container">
+                                    <div class="user_chat__wrapper">
+                                        {% for message in all_messages %}
+                                            {% if message.user == user_n %}
+                                                <div class="user_chat_sent">
+                                                    <div class="user_chat_sender_box">
+                                                        <div class="user_chat_sender_cont">
+                                                            <div class="chat_inbox_send">
+                                                                <div class="user_chat_send">{{ message.message_sent }}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user_chat_send_name">
+                                                            <span class="send_">Sent at: {{ message.user.username}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="user_chat_receive_wrapper">
+                                                    <div class="user_chat_receive_box">
+                                                        <div class="user_chat_receive_cont">
+                                                            <div class="chat_inbox_receive">
+                                                                <div class="user_chat_receive">{{ message.message_received }}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user_chat_receiver_name">
+                                                            <span class="inbox">Received at: {{ message.user }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="user_chat_input">
+                                <div class="user_chat_input_box">
+                                    <div class="user_chat_box">
+                                        <div class="chat_input_emoje">
+                                            <button id="show_emoji" class="chat_iput_pop">
+                                                <i class="bi bi-emoji-smile-fill"></i>
+                                            </button>
+    
+                                            <div class="chat_iput_box_imoji">
+                                                <emoji-picker></emoji-picker>
+                                            </div>
+                                        </div>
+
+                                        <div class="user_chat_box_input">
+                                            <div class="user_chat_box_container">
+                                                <input type="text" name="message" id="sender_chat" placeholder="Send a message" />
+                                            </div>
+                                        </div>
+
+                                        <div class="user_chat_send_but">
+                                            <div class="user_chat_send">
+                                                <button id="send_message" >
+                                                    <i class="bi bi-send"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <div class="new_friends">
                         <div class="friends_req_view">
@@ -118,7 +214,7 @@
                                 <div class="new_frie_head">
                                     <h3>Friend Requests</h3>
                                 </div>
-                                {% for request in received_requests %}
+                                {% for request in friend_requests %}
                                 <div class="main_friands">
                                     <div class="fiends_req">
                                         <div class="friends_flesa">
@@ -265,5 +361,6 @@
     </div>
     <script src="{% static "JS/messages.js" %}"></script>
     <script src="{% static "JS/chat.js" %}"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </body>
 </html>

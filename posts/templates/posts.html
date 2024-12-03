@@ -31,11 +31,20 @@
                                         <div class="options_upload">
                                             <div class="uplo_options">
                                                 <div class="option_first">
-                                                    <div class="op_fir_textbox">
-                                                        <div class="onl_txt_b">
-                                                            <textarea name="something" id="something" placeholder="what's on your mind"></textarea>
+                                                    <form class="what_on_mind" data-url="/posts/create_txt/" method="post">
+                                                        {% csrf_token %}
+                                                        <div class="op_fir_textbox">
+                                                            <div class="onl_txt_b">
+                                                                <textarea name="something" id="something" placeholder="what's on your mind"></textarea>
+                                                            </div>
+    
+                                                            <div class="post_text" style="display: none;">
+                                                                <button id="create_text_post">
+                                                                    <i class="bi bi-arrow-up-circle-fill" ></i>
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
             
                                                 <div class="option_sec">
@@ -100,6 +109,10 @@
                                             <video controls>
                                                 <source src="{{ post.video.url }}" type="video/mp4">
                                             </video>
+                                            {% elif post.text_post %}
+                                            <div>
+                                                <div>{{ post.text_post }}</div>
+                                            </div>
                                             {% else %}
                                                 <p>No media available.</p>
                                             {% endif %}
@@ -119,7 +132,9 @@
                                             <div class="like_but eng">
                                                 <form method="post" class="like_cou engCount" id="like-form" data-url="{% url 'like_post' post.id %}">
                                                     {% csrf_token %}
-                                                    {% if request.user in post.likes.all %}
+                                                    
+                                                    {% for post.user in post.likes.all %}
+                                                    {% if post.user %}
                                                     <button id="like-btn" name="like" class="liked">
                                                         <i name="heart" class="bi bi-heart-fill" id="likeIcon">
                                                             <div class="red"></div>
@@ -132,10 +147,11 @@
                                                         </i>
                                                     </button>
                                                     {% endif %}
+                                                    {% endfor %}
             
                                                     <div class="like_count engactcou">
                                                         <div class="li_c">
-                                                            {% if post.likes.count == 1 %}
+                                                            {% if post.likes.count == 1 or post.likes.count == 0 %}
                                                             <span id="likes-count">{{post.likes.count}} . like</span>
                                                             {% else %}
                                                             <span id="likes-count">{{post.likes.count }} . likes</span>
@@ -166,58 +182,74 @@
                         </div>
                     </div>
 
-                    <div class="friends_req_view">
-                        <div class="new_friends">
-                            <div class="new_frie_head">
-                                <h3>Friend Request</h3>
+                    <div class="grid-right">
 
-                            </div>
-                            {% for request in friend_requests %}
-                            <div class="main_friands">
-                                <div class="fiends_req">
-                                    <h3>GORDEN</h3>
-                                    <div class="friends_flesa">
-                                        <div class="fri_reqa">
-                                            <div class="friend_profile">
-                                                <img src="{{ user.profile.profile_picture.url }}" alt="friends's profile ">
-                                            </div>
-
-                                            <div class="friend_use_nam">
-                                                <div class="_f_na">
-                                                    <h3>GORDEN</h3>
-                                                    <span>{{ request.from_user.username }}</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="frie_options">
-                                                <div class="opt_req">
-                                                    <div class="accept opt">
-                                                        <div class="frined_accept">
-                                                            <a href="{% url 'accept_friend_request' request.id %}">
-                                                                <button>
-                                                                    <i class="bi bi-check-circle"></i>
-                                                                </button>
-                                                            </a>
+                        <div class="friends_req_view">
+                            <div class="new_friends">
+                                <div class="new_frie_head">
+                                    <h3>Friend Request</h3>
+    
+                                </div>
+                                {% for request in friend_requests %}
+                                    <div class="main_friands">
+                                        <div class="fiends_req">
+                                            <div class="friends_flesa">
+                                                <div class="fri_reqa">
+                                                    <div class="friend_profile">
+                                                        {% if request.from_user.profile.profile_picture %}
+                                                        <img src="{{ request.from_user.profile.profile_picture.url }}" alt="friends's profile ">
+                                                        {% else %}
+                                                        <img src="{% static "images/avatar-4.png" %}" alt=" {{request.from_user.username}}'' friends's profile ">
+                                                        {% endif %}
+                                                    </div>
+        
+                                                    <div class="friend_use_nam">
+                                                        <div class="_f_na">
+                                                            {% if request.from_user.username %}
+                                                            <span>{{ request.from_user.username }}</span>
+                                                            {% else %}
+                                                            <span>No username</span>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
-                                                    <div class="decline opt">
-                                                        <div class="friend_decline">
-                                                            <a href="{% url 'reject_friend_request' request.id %}">
-                                                                <button>
-                                                                    <i class="bi bi-x-circle"></i>
-                                                                </button>
-                                                            </a>
+        
+                                                    <div class="frie_options">
+                                                        <div class="opt_req">
+                                                            <div class="accept opt">
+                                                                <div class="frined_accept">
+                                                                    <a href="{% url 'accept_friend_request' request.id %}">
+                                                                        <button>
+                                                                            <i class="bi bi-check-circle"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="decline opt">
+                                                                <div class="friend_decline">
+                                                                    <a href="{% url 'reject_friend_request' request.id %}">
+                                                                        <button>
+                                                                            <i class="bi bi-x-circle"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    {% empty %}
+                                    <div class="empt_fr_req">
+                                        <div class="empt_fr_req_cont">
+                                            <div class="empt_fr_req_img">
+                                                <img src="{% static "images/empt_chat.svg" %}" alt="No Friend's request image" />
+                                            </div>
+                                            <h2>No Friend Requests</h2>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
                             </div>
-                            {% empty %}
-                            <div>NO requests</div>
-                            {% endfor %}
                         </div>
 
                         <div class="friends_req_view">
@@ -233,7 +265,11 @@
                                         <div class="friends_flesa">
                                             <div class="fri_reqa">
                                                 <div class="friend_profile">
+                                                    {% if user.profile.profile_picture %}
                                                     <img src="{{ user.profile.profile_picture.url }}" alt="friends's profile ">
+                                                    {% else %}
+                                                    <img src="{% static 'images/avatar-4.png' %}" alt="friends's profile ">
+                                                    {% endif %}
                                                 </div>
     
                                                 <div class="friend_use_nam">
@@ -255,7 +291,7 @@
                                                         </div>
                                                         <!-- <div class="decline opt">
                                                             <div class="friend_decline">
-                                                                <a href="{% url 'reject_friend_request' request.id %}">
+                                                                <a href="{% url 'reject_friend_request' user.id %}">
                                                                     <button>
                                                                         <i class="bi bi-x-circle"></i>
                                                                     </button>

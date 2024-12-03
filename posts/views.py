@@ -1,18 +1,59 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from .models import Posts, Like, Comment
+from users.models import FriendRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import mimetypes
 from django.http import JsonResponse
 import json
+from django.contrib.auth.models import User
 
 def feed(request):
     all_posts = Posts.objects.all().order_by("-created_at")
+    friend_requests = FriendRequest.objects.filter(to_user=request.user, is_accepted=False)
+    users = User.objects.filter()
     context = {
-        "allpost": all_posts
+        "allpost": all_posts,
+        "friend_requests":friend_requests,
+        "users":users
     }
 
-    return render(request, 'posts.html', context)
+    return render(request, 'posts.html', context)  
+
+
+def create_txt_post(request):
+    if request.method == 'POST':
+        user = request.user
+        data = json.loads(request.body)
+        user_post = data.get("something")
+
+                    
+        try:
+            if user_post:
+                create_post = Posts.objects.create(user=user, text_post=user_post)
+                create_post.save()
+
+                return JsonResponse({
+                    "status":"sucess",
+                    "message":"Post made sucessfull",
+                    "payload": {
+                        "username":user.username,
+                        "profile_picture":user.profile.profile_picture.url,
+                        "content": user_post
+                    }
+                }, status=201)
+        
+        except Exception as e:
+            return JsonResponse({
+                "status":"error",
+                "message":f"Error creating post {e}"
+            }, status=400)
+        
+
+    return JsonResponse({
+        "status":"error",
+        "message":"Method is not a post request"
+    }, status=400)
 
 
 @login_required
@@ -35,7 +76,7 @@ def create(request):
                 create_post = Posts.objects.create(user=request.user, content=content, image=media)
             
             elif file_type and file_type.startswith('video'):
-                create_post = Posts.objects.create(user=request.user, content=content, video=media)
+                create_post = Posts.objects.create(user=request.user, content=content, video=media)    
 
             else:
                 return JsonResponse({
@@ -46,8 +87,10 @@ def create(request):
             create_post.save()
             return JsonResponse({
                     "status":"sucess",
-                    "message":"Your post was successful."
+                    "message":"Your post was successful.",
+                    "payload":create_post
             }, status=201)
+        
 
         except Exception as e:
             return JsonResponse({
@@ -118,7 +161,8 @@ def comment_post(request, comment_id):
                 Comment.objects.create(user=user, post=post, content=user_comment)
                 return JsonResponse({
                     "status": "success",
-                    "comment_count": post.comments.count()
+                    "comment_count": post.comments.count(),
+                    "user_profile": user.profile.profile_picture.url
                 }, status=201) 
             
             except Exception as e:

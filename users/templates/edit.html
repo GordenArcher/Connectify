@@ -10,11 +10,11 @@
     <title>Connectify . Profile Edit</title>
 </head>
 <body>
+    {% for message in messages %}
     <div id="toast-container">
-        {% for message in messages %}
         <div class="toast">{{ message }}</div>
-        {% endfor %}
     </div>
+    {% endfor %}
 
     {% include 'base/base.html' %}
     <div class="pop_edit">
@@ -75,7 +75,7 @@
                                     <div class="edit_bio">
                                         <div class="e_a_b">
                                             <label for="bio"> Username</label>
-                                            <input name="usernames" id="username" value={{user.username}} />
+                                            <input name="username" id="username" value={{user.username}} />
                                         </div>
                                     </div>
                                 </li>

@@ -73,13 +73,13 @@ likebtn.addEventListener('click', (event) => {
 send_comment.addEventListener('click', (event) => {
     event.preventDefault(); 
 
-    const form = document.querySelector(".comment_form")
-    const url = form.getAttribute("data-url")
+    const form = document.querySelector(".comment_form");
+    const url = form.getAttribute("data-url");
     const csrfToken = form.querySelector("input[name=csrfmiddlewaretoken]").value; 
     const commentContent = form.querySelector("textarea[name='comment']").value;
 
     if (!commentContent.trim()) {
-        showToast("Comment cannot be empty.");
+        showAlert("Comment cannot be empty.");
         return;
     }
 
@@ -95,22 +95,54 @@ send_comment.addEventListener('click', (event) => {
     .then(data => {
         console.log(data)
         if (data.status === "success") {
-            console.log(data)
-
             const commentCount = document.getElementById("comment-count");
             if (commentCount) {
-                commentCount.textContent = `${data.comment_count} ${data.comment_count === 1 ? "comment" : "comments"}`;
+                commentCount.textContent = `${data.comment_count} ${data.comment_count === 1 ? ". comment" : ". comments"}`;
             }
 
             form.querySelector("textarea[name='comment']").value = "";
+            
 
-            showToast("Your comment was added successfully.");
+            const commentList = document.querySelector(".comment_flex");
+            if (commentList) {
+                const newComment = document.createElement("div");
+                newComment.classList.add("all_coments", "fade-in")
 
+                newComment.innerHTML = `
+                    <div class="comments_all">
+                        <div class="comment_user_profile">
+                            <div class="comment_profile">
+                                <img src="${data.user_profile}" alt="Your profile picture" />
+                            </div>
+                        </div>
+                        <div class="user_comment">
+                            <div class="u_c_usn">
+                                <div class="u_c_n">
+                                    <div class="user-name">
+                                        <span>You</span>
+                                    </div>
+                                </div>
+                                <div class="actua_comme">
+                                    <div class="comment_text">
+                                        <span>${commentContent}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
 
+                commentList.appendChild(newComment);
+                newComment.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+                showAlert("Comment added successfully!");
+            }
         } else {
-            console.log(data.message + " error")
-            showToast(data.message);
+            showAlert(data.message);
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        showAlert("An error occurred. Please try again.");
+    });
 });

@@ -112,7 +112,7 @@ def edit_profile(request, username):
         profile_picture = request.FILES.get("profile")
         cover_picture = request.FILES.get("cover")
         bio = request.POST.get("bio")
-        usernames = request.POST.get("username")
+        user_username = request.POST.get("username")
         email = request.POST.get("email")
 
         try:
@@ -127,8 +127,8 @@ def edit_profile(request, username):
                     profile_info.bio = bio
                 profile_info.save()
 
-                if usernames:
-                    user.username = usernames
+                if user_username:
+                    user.username = user_username
                 if email:
                     user.email = email
                 user.save()
@@ -153,8 +153,12 @@ def edit_profile(request, username):
 def send_friend_request(request, user_id):
     to_user = get_object_or_404(User, id=user_id)
     
-    if FriendRequest.objects.filter(from_user=request.user, to_user=to_user).exists():
+    if FriendRequest.objects.filter(from_user=request.user, to_user=to_user, is_accepted=False).exists():
         messages.error(request, "Friend request already sent.")
+
+    elif FriendRequest.objects.filter(from_user=request.user, to_user=to_user, is_accepted=True).exists():
+        messages.error(request, f"You're already friends with {to_user.username}")   
+
     elif request.user == to_user:
         messages.error(request, "You cannot send a friend request to yourself.")
     else:
@@ -167,16 +171,18 @@ def send_friend_request(request, user_id):
 @login_required
 def view_friend_requests(request):
     friend_requests = FriendRequest.objects.filter(to_user=request.user, is_accepted=False)
-    return render(request, 'posts/posts.html', {'friend_requests': friend_requests})
+    return render(request, 'messages', {'friend_requests': friend_requests})
 
 
 @login_required
 def accept_friend_request(request, request_id):
     friend_request = get_object_or_404(FriendRequest, id=request_id, to_user=request.user)
-
+    
     friend_request.is_accepted = True
     friend_request.save()
-    messages.success(request, f"You are now friends with {friend_request.to_user.username}.")
+
+    FriendRequest.objects.get_or_create(from_user=request.user, to_user=friend_request.from_user,  is_accepted=True)
+    messages.success(request, f"You are now friends with {friend_request.from_user.username}.")
 
     return redirect('messages')
 

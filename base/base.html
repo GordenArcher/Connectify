@@ -3,6 +3,7 @@
     <section>
         {% load static %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <link rel="stylesheet" href={% static 'CSS/base.css' %}>
 
         <nav class="nav_bar">
@@ -75,10 +76,14 @@
                         <div class="side_bottom">
                             <div class="side_bottom_wrap">
                                 <div class="side_botton_settings">
-                                    <div class="setting_gear" onclick="navigate()">
+                                    <div class="setting_gear">
                                         <button>
-                                            <i class="bi bi-chat"></i>
+                                            <i class="bi bi-bell"></i>
                                         </button>
+
+                                        <div class="not_count">
+                                            {{user.messages.received_requests}}
+                                        </div>
                                     </div>
                                 </div>
     
@@ -100,4 +105,5 @@
         </nav>
 
         <script src={% static "JS/base.js" %}></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     </section>
