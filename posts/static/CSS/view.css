@@ -56,6 +56,7 @@
     width: 60%;
     height: 100%;
     border-radius: 6px;
+    object-fit: cover;
     position: relative;
 }
 
@@ -233,5 +234,23 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width:786px) {
+    .post_container{
+        flex-direction: column;
+    }
+
+    ._view_l_med{
+        height: 300px;
+    }
+
+    ._view_l_med img, ._view_l_med video{
+        width: 100%;
+    }
+
+    .comments{
+        height: 400px;
     }
 }

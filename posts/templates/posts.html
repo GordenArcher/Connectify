@@ -103,12 +103,14 @@
 
                                     <div class="post_media">
                                         <div style="cursor: pointer;" class="media" onclick="location.assign('/posts/feed/{{post.id}}/view_post/')">
-                                            {% if post.image %}
-                                                <img src="{{ post.image.url }}" alt="Post image">
-                                            {% elif post.video %}
-                                            <video controls>
-                                                <source src="{{ post.video.url }}" type="video/mp4">
-                                            </video>
+                                            {% if post.media_type == "video" %}
+                                                <video controls>
+                                                    <source src="{{ post.media.url }}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            {% elif post.media_type == "image" %}
+                                                <img src="{{ post.media.url }}" alt="Post media">
+                                            
                                             {% elif post.text_post %}
                                             <div>
                                                 <div>{{ post.text_post }}</div>
@@ -133,21 +135,19 @@
                                                 <form method="post" class="like_cou engCount" id="like-form" data-url="{% url 'like_post' post.id %}">
                                                     {% csrf_token %}
                                                     
-                                                    {% for post.user in post.likes.all %}
-                                                    {% if post.user %}
+                                                    {% if post.is_liked_by_user %}
                                                     <button id="like-btn" name="like" class="liked">
                                                         <i name="heart" class="bi bi-heart-fill" id="likeIcon">
                                                             <div class="red"></div>
                                                         </i>
                                                     </button>
                                                     {% else %}
-                                                    <button id="like-btn" name="like">
+                                                    <button id="like-btn" name="like" class="liked">
                                                         <i name="heart" class="bi bi-heart" id="likeIcon">
                                                             <div class="red"></div>
                                                         </i>
                                                     </button>
                                                     {% endif %}
-                                                    {% endfor %}
             
                                                     <div class="like_count engactcou">
                                                         <div class="li_c">

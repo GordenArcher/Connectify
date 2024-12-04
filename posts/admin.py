@@ -3,7 +3,7 @@ from .models import Posts, Like, Comment, Follows
 
 # Register your models here.
 class PostsAdmin(admin.ModelAdmin):
-    list_display = ["user", "content", "image", "video","text_post", "created_at"]
+    list_display = ["user", "content", "media", "text_post", "created_at"]
     search_fields = ["user", "content", "text_post", "created_at"]
 
     def __str__(self):

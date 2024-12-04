@@ -377,3 +377,76 @@ a{
     border-radius: 6px;
     cursor: pointer;
 }
+
+.head{
+    font-size: 1.5rem;
+}
+
+.u_p{
+    padding-top: 100px;
+}
+
+.my_posts_head{
+    text-align: center;
+}
+
+.tab_ul > li{
+    display: none;
+}
+
+.activeTab{
+    display: block !important;
+}
+
+@media screen and (max-width:786px) {
+    .user_info, .posts_container, .user__, .user_count{
+        padding: 10px;
+    }
+
+    .all_grid{
+        gap: 10px;
+        margin: 0;
+    }
+
+    .post_al{
+        width: 100%;
+        padding: 0;
+    }
+
+    .media{
+        height: 100%;
+        height: 120px;
+        padding: 0;
+    }
+
+    .head{
+        font-size: 1.1rem;
+    }
+
+    .cover_pro_pic, .empt_cover{
+        height: 150px;
+    }
+
+    .main_profile{
+        width: 90px;
+        height: 90px;
+    }
+
+    .ou{
+        padding: 0;
+    }
+
+    .oub button{
+        width: 70px;
+        height: 40px;
+    }
+
+    .inf_ ul{
+        gap: 10px;
+    }
+
+    .inf_ ul li{
+        padding: 7px;
+    }
+}
+

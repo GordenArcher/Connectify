@@ -60,11 +60,177 @@ document.querySelector("#post_image").addEventListener("click", (e) => {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === "success") {
+            if (data.status === "sucess") {
                 console.log(data)
                 showAlert(data.message)
+        
+            const all_p_flex = document.querySelector(".all_p_flex");
 
-                upload_popup.style.display = "none"
+            const postDiv = document.createElement('div');
+            postDiv.classList.add('post_al');
+
+            const postWrap = document.createElement('div');
+            postWrap.classList.add('post_wrap');
+            postDiv.appendChild(postWrap);
+
+            const userDel = document.createElement('div');
+            userDel.classList.add('user_del');
+            postWrap.appendChild(userDel);
+
+            const userWPDel = document.createElement('div');
+            userWPDel.classList.add('user_w_p_del');
+            userDel.appendChild(userWPDel);
+
+            const userWPProf = document.createElement('div');
+            userWPProf.classList.add('user_w_p_prof');
+            userWPDel.appendChild(userWPProf);
+
+            const profileImg = document.createElement('img');
+            profileImg.src = data.profile ? data.profile : '/static/images/avatar-4.png';
+            profileImg.alt = "Profile Picture";
+            userWPProf.appendChild(profileImg);
+
+            const userWPName = document.createElement('div');
+            userWPName.classList.add('user_w_p_d_name');
+            userWPDel.appendChild(userWPName);
+
+            const userName = document.createElement('p');
+            userName.textContent = data.payload.user;
+            userWPName.appendChild(userName);
+
+            const postMedia = document.createElement('div');
+            postMedia.classList.add('post_media');
+            postWrap.appendChild(postMedia);
+
+            const mediaDiv = document.createElement('div');
+            mediaDiv.classList.add('media');
+            mediaDiv.style.cursor = 'pointer';
+            mediaDiv.onclick = function() {
+                location.assign(`/posts/feed/${data.payload.id}/view_post/`);
+            };
+            postMedia.appendChild(mediaDiv);
+
+            if (data.payload.media_url && data.payload.media_url.startsWith("image")) {
+                const imgTag = document.createElement('img');
+                imgTag.src = data.payload.media_url;
+                imgTag.alt = "Post media";
+                mediaDiv.appendChild(imgTag);
+            } else if (data.payload.media_url) {
+                const videoTag = document.createElement('video');
+                videoTag.controls = true;
+
+                const sourceTag = document.createElement('source');
+                sourceTag.src = data.payload.media_url;
+                sourceTag.type = "video/mp4";
+
+                videoTag.appendChild(sourceTag);
+                mediaDiv.appendChild(videoTag);
+            } else {
+                const noMediaMessage = document.createElement('p');
+                noMediaMessage.textContent = "No media available";
+                mediaDiv.appendChild(noMediaMessage);
+            }
+
+            if (data.payload.content) {
+                const postDesc = document.createElement('div');
+                postDesc.classList.add('post_descc');
+                postWrap.appendChild(postDesc);
+
+                const descDiv = document.createElement('div');
+                descDiv.classList.add('desp');
+                postDesc.appendChild(descDiv);
+
+                const descText = document.createElement('span');
+                descText.textContent = data.payload.content;
+                descDiv.appendChild(descText);
+            }
+
+            const attentDiv = document.createElement('div');
+            attentDiv.classList.add('attent');
+            postWrap.appendChild(attentDiv);
+
+            const engageDiv = document.createElement('div');
+            engageDiv.classList.add('engage');
+            attentDiv.appendChild(engageDiv);
+
+            // Like button section
+            const likeButDiv = document.createElement('div');
+            likeButDiv.classList.add('like_but', 'eng');
+            engageDiv.appendChild(likeButDiv);
+
+            const likeForm = document.createElement('form');
+            likeForm.method = 'post';
+            likeForm.classList.add('like_cou', 'engCount');
+            likeForm.id = 'like-form';
+            likeForm.setAttribute('data-url', `/posts/like-post/${data.payload.id}/`);
+            likeButDiv.appendChild(likeForm);
+
+            const likeButton = document.createElement('button');
+            likeButton.id = 'like-btn';
+            likeButton.name = 'like';
+            likeForm.appendChild(likeButton);
+
+            const likeIcon = document.createElement('i');
+            likeIcon.classList.add('bi', 'bi-heart');
+            likeButton.appendChild(likeIcon);
+
+            const likeRedDiv = document.createElement('div');
+            likeRedDiv.classList.add('red');
+            likeIcon.appendChild(likeRedDiv);
+
+            const likeCountDiv = document.createElement('div');
+            likeCountDiv.classList.add('like_count', 'engactcou');
+            likeForm.appendChild(likeCountDiv);
+
+            const likeCountTextDiv = document.createElement('div');
+            likeCountTextDiv.classList.add('li_c');
+            likeCountDiv.appendChild(likeCountTextDiv);
+
+            const likeCountText = document.createElement('span');
+            likeCountText.id = 'likes-count';
+            likeCountText.textContent = '0 . like';
+            likeCountTextDiv.appendChild(likeCountText);
+
+            const commentButDiv = document.createElement('div');
+            commentButDiv.classList.add('comment_but', 'eng');
+            engageDiv.appendChild(commentButDiv);
+
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment_cou', 'engCount');
+            commentDiv.style.cursor = 'pointer';
+            commentDiv.onclick = function() {
+                location.assign(`/posts/feed/${data.payload.id}/view_post/`);
+            };
+            commentButDiv.appendChild(commentDiv);
+
+            const commentButton = document.createElement('button');
+            commentButton.name = 'comments';
+            commentDiv.appendChild(commentButton);
+
+            const commentIcon = document.createElement('i');
+            commentIcon.classList.add('bi', 'bi-chat');
+            commentButton.appendChild(commentIcon);
+
+            const commentCountDiv = document.createElement('div');
+            commentCountDiv.classList.add('comment_count', 'engactcou');
+            commentDiv.appendChild(commentCountDiv);
+
+            const commentCountTextDiv = document.createElement('div');
+            commentCountTextDiv.classList.add('co_c');
+            commentCountDiv.appendChild(commentCountTextDiv);
+
+            const commentCountText = document.createElement('span');
+            commentCountText.textContent = '0 . comment';
+            commentCountTextDiv.appendChild(commentCountText);
+
+            all_p_flex.appendChild(postDiv, all_p_flex.firstChild);
+
+                const uploadImagePopup = document.querySelector(".upload_image_popup");
+                if (uploadImagePopup) {
+                    uploadImagePopup.style.display = 'none';
+                }
+
+
             } else {
                 console.log(data)
                 showAlert(data.message);

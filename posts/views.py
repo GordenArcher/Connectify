@@ -3,13 +3,17 @@ from .models import Posts, Like, Comment
 from users.models import FriendRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-import mimetypes
 from django.http import JsonResponse
 import json
 from django.contrib.auth.models import User
+from django.db.models import Exists, OuterRef
 
 def feed(request):
-    all_posts = Posts.objects.all().order_by("-created_at")
+    all_posts = Posts.objects.annotate(
+        is_liked_by_user=Exists(
+            Like.objects.filter(user=request.user, post=OuterRef('pk'))
+        )
+    ).order_by("-created_at")
     friend_requests = FriendRequest.objects.filter(to_user=request.user, is_accepted=False)
     users = User.objects.filter()
     context = {
@@ -59,36 +63,32 @@ def create_txt_post(request):
 @login_required
 def create(request):
     if request.method == "POST":
-        content = request.POST.get("caption") 
+        content = request.POST.get("caption")
         media = request.FILES.get("media")
 
-        if not media:
-            return JsonResponse({
-                "status":"error",
-                "message":"Media is empty. Please upload a media"
-            }, status=400)
-
-        file_type, _ = mimetypes.guess_type(media.name)
-
-
         try:
-            if file_type and file_type.startswith('image'):
-                create_post = Posts.objects.create(user=request.user, content=content, image=media)
             
-            elif file_type and file_type.startswith('video'):
-                create_post = Posts.objects.create(user=request.user, content=content, video=media)    
+            if media:
+                create_post = Posts.objects.create(user=request.user, content=content, media=media, media_type='video' if media.name.endswith('.mp4') else 'image')    
 
             else:
                 return JsonResponse({
                     "status":"error",
-                    "message":"Invalid media type. Please upload an image or a video."
+                    "message":"Media is empty. Please upload a media"
                 }, status=400)
 
             create_post.save()
             return JsonResponse({
                     "status":"sucess",
                     "message":"Your post was successful.",
-                    "payload":create_post
+                    "content": create_post.content,
+                    "payload": {
+                        "id": create_post.id,
+                        "user": create_post.user.username,
+                        'profile': create_post.user.profile.profile_picture.url,
+                        "media_url": create_post.media.url if create_post.media else None,
+                        "created_at": create_post.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                    }
             }, status=201)
         
 
@@ -107,11 +107,16 @@ def create(request):
 
 
 def view_feed_post(request, pk):
+    all_posts = Posts.objects.annotate(
+        is_liked_by_user=Exists(
+            Like.objects.filter(pk=pk, post=OuterRef('pk'))
+        )
+    )
     this_post = Posts.objects.get(pk=pk)
 
     comments = this_post.comments.all()
 
-    return render(request, 'view_post.html', {"this_post":this_post, "comments":comments})
+    return render(request, 'view_post.html', {"this_post":this_post, "comments":comments, "all_posts":all_posts})
 
 
 def Like_post(request, post_id):

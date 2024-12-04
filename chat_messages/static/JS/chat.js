@@ -31,7 +31,6 @@ document.addEventListener("click", () => {
     chat_iput_box_imoji.classList.remove("show_emoji")
 })
 
-document.querySelector('emoji-picker').addEventListener('emoji-click', event => console.log(event.detail));
 
 
 const roomName = JSON.parse(document.getElementById('room-name').textContent);
@@ -54,10 +53,11 @@ socket.onmessage = (e) => {
     const message = data.message;
     const sender = data.sender;
     const recipient = data.recipient;
-    const loggedInUser = sender;
+    const loggedInUser = data.loggedInUser;
     console.log(loggedInUser, recipient)
 
     const isSentByUser = sender === loggedInUser;
+    console.log(isSentByUser)
 
     const chatWrapper = document.querySelector(".user_chat__wrapper");
 
@@ -92,7 +92,7 @@ socket.onmessage = (e) => {
                     </div>
                 </div>
                 <div class="user_chat_receiver_name">
-                    <span class="inbox">Received at: ${currentDateTime}</span>
+                    <span class="inbox"> ${currentDateTime}</span>
                 </div>
             </div>
         `}
@@ -101,7 +101,6 @@ socket.onmessage = (e) => {
     messageDiv.innerHTML = messageBox;
     chatWrapper.appendChild(messageDiv);
 
-    // Scroll to the bottom of the chat
     chatWrapper.scrollTop = chatWrapper.scrollHeight;
 };
 
@@ -111,7 +110,12 @@ socket.onclose = () => {
 }
 
 
+document.querySelector('emoji-picker').addEventListener('emoji-click', (event) =>  {
+    const inputField = document.getElementById("sender_chat");
+    inputField.value += event.detail.unicode;
+    console.log(event.detail)
 
+});
 
 document.getElementById("send_message").addEventListener("click", () => {
     const sender_chat = document.getElementById("sender_chat");

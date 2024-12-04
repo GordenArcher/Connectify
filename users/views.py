@@ -88,19 +88,20 @@ def profile(request, username):
     user = User.objects.get(username=username)
 
     try:
-        my_posts = Posts.objects.filter(user=user)
         profile_info = Profile.objects.get(user=user)
     except Profile.DoesNotExist:
         profile_info = None
 
-
+    my_posts = Posts.objects.filter(user=user).exclude(media__isnull=True).exclude(media="")
+    text_posts = Posts.objects.filter(user=user).exclude(text_post__isnull=True).exclude(text_post="") 
 
     context = {
         "user_posts" : my_posts,
         "profile": profile_info,
+        "text_posts":text_posts
     }
 
-    return render(request, 'profile.html', context )
+    return render(request, 'profile.html', context)
 
 
 @login_required

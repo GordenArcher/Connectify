@@ -20,7 +20,7 @@
         <div class="message_container">
             <div class="message_ui_wrapper">
                 <div class="message_ui_grid">
-                    <div class="friend_chat_display">
+                    <div class="friend_chat_display ls">
                         <div class="chat_left">
                             <div class="left_friend_s">
                                 <div class="friends_search">
@@ -98,25 +98,24 @@
                     </div>
 
                     <div class="chat_view">
-                        
-                        {% for request in accepted_requests %}
-                        {{ request.from_user.username|json_script:"room-name" }}
+                        {% for accept_request in accepted_requests %}
+                        {{ accept_request.from_user.username|json_script:"room-name" }}
                         <div class="chat_view_friend">
-                            <div class="user_chat_head">
+                            <div class="user_chat_head ">
                                 <div class="user_chat_head_wrap">
                                     <div class="user_chat_head_wrap_">
                                         <div class="user_chat_head_wrap_image">
-                                            {% if request.from_user.profile.profile_picture %}
-                                            <img src="{{ request.from_user.profile.profile_picture.url }}" alt="{{request.from_user.username }}'s profile picture" />
+                                            {% if accept_request.from_user.profile.profile_picture %}
+                                            <img src="{{ accept_request.from_user.profile.profile_picture.url }}" alt="{{accept_request.from_user.username }}'s profile picture" />
                                             {% else %}
-                                            <img src="{% static "images/avatar-4.png" %}" alt="{{request.from_user.username }}'s profile picture" />
+                                            <img src="{% static "images/avatar-4.png" %}" alt="{{accept_request.from_user.username }}'s profile picture" />
                                             {% endif %}
                                             
                                         </div> 
 
                                         <div class="user_chat_head_wrap_nom">
                                             <div class="user_chat_head_namee">
-                                                <div class="user_chat_head_user_name">{{request.from_user.username}}</div>
+                                                <div class="user_chat_head_user_name">{{accept_request.from_user.username}}</div>
                                             </div>
 
                                             <div class="user_chat_head_last_status">
@@ -139,11 +138,11 @@
                                 </div>
                             </div>
 
-                            <div class="user_chat_view">
+                            <div class="user_chat_view ch_v">
                                 <div class="user_chat_view_container">
                                     <div class="user_chat__wrapper">
                                         {% for message in all_messages %}
-                                            {% if message.user == user_n %}
+                                            {% if message.user == request.user %}
                                                 <div class="user_chat_sent">
                                                     <div class="user_chat_sender_box">
                                                         <div class="user_chat_sender_cont">
@@ -152,7 +151,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="user_chat_send_name">
-                                                            <span class="send_">Sent at: {{ message.user.username}}</span>
+                                                            <span class="send_">Sent by: {{ message.user.username}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,11 +160,11 @@
                                                     <div class="user_chat_receive_box">
                                                         <div class="user_chat_receive_cont">
                                                             <div class="chat_inbox_receive">
-                                                                <div class="user_chat_receive">{{ message.message_received }}</div>
+                                                                <div class="user_chat_receive">{{ message.message_sent }}</div>
                                                             </div>
                                                         </div>
                                                         <div class="user_chat_receiver_name">
-                                                            <span class="inbox">Received at: {{ message.user }}</span>
+                                                            <span class="inbox">Received by: {{ message.user }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -208,7 +207,7 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div class="new_friends">
+                    <div class="new_friends ls">
                         <div class="friends_req_view">
                             <div class="new_friends">
                                 <div class="new_frie_head">

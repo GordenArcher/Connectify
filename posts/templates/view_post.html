@@ -24,12 +24,18 @@
                 <div class="left_view_post">
                     <div class="view_post_media">
                         <div class="_view_l_med">
-                            {% if this_post.image %}
-                                <img src="{{ this_post.image.url }}" alt="Post image">
-                            {% elif this_post.video %}
-                            <video controls>
-                                <source src="{{ this_post.video.url }}" type="video/mp4">
-                            </video>
+                            {% if this_post.media_type == "video" %}
+                                <video controls>
+                                    <source src="{{ this_post.media.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% elif this_post.media_type == "image" %}
+                                <img src="{{ this_post.media.url }}" alt="Post media">
+                            
+                            {% elif this_post.text_post %}
+                            <div>
+                                <div>{{ this_post.text_post }}</div>
+                            </div>
                             {% else %}
                                 <p>No media available.</p>
                             {% endif %}
@@ -40,11 +46,21 @@
                         {% csrf_token %}
                         <div class="likes_q">
                             <div class="likes">
-                                <button name="like" class="like_post" id="likebtn">
-                                    <i name="heart" class="bi bi-heart" id="likeIcon">
-                                        <div class="red"></div>
-                                    </i>
-                                </button>
+
+                                {% if this_post.is_liked_by_user %}
+                                    <button name="like" class="like_post" id="likebtn">
+                                        <i name="heart" class="bi bi-heart-fill" id="likeIcon">
+                                            <div class="red"></div>
+                                        </i>
+                                    </button>
+                                    {% else %}
+                                    <button name="like" class="like_post" id="likebtn">
+                                        <i name="heart" class="bi bi-heart" id="likeIcon">
+                                            <div class="red"></div>
+                                        </i>
+                                    </button>
+                                {% endif %}
+                                
                             </div>
     
                             <div class="like_amo">

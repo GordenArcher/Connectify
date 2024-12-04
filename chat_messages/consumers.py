@@ -34,7 +34,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = data.get('message', '').strip()
 
         if not message:
-            await self.send_error('You typed nothing mate')
+            await self.send_error('You typed nothing')
             return
 
         recipient = await self.get_recipient_async()

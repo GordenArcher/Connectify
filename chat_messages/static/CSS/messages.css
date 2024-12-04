@@ -425,7 +425,7 @@
     transform: scale(1);
 }
 
-.user_chat__wrapper,.user_chat_receive_wrapper{
+.user_chat__wrappers{
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -440,18 +440,9 @@
     font-family: Arial, sans-serif;
 }
 
-.user_chat_receive_wrapper {
-    display: flex;
-    justify-content: flex-start; 
-}
-
 .user_chat_receive_box {
-    background-color: #f1f1f1;
     color: #333;
     padding: 10px;
-    border-radius: 15px;
-    max-width: 70%;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     word-wrap: break-word;
 }
 
@@ -503,12 +494,6 @@
     text-align: right;
 }
 
-/* @media (max-width: 768px) {
-    .user_chat_receive_box, .user_chat_sender_box {
-        max-width: 85%;
-    }
-} */
-
 .user_chat_sent {
     text-align: right;
     margin-left: auto;
@@ -524,4 +509,16 @@
     padding: 10px;
     border-radius: 10px;
     max-width: 70%;
+}
+
+
+@media (max-width: 768px) { 
+    .message_ui_grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .ls{
+        display: none;
+    }
+   
 }

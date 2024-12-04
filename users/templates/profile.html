@@ -44,11 +44,6 @@
                             <div class="user__">
                                 {% if user != profile.user %}
                                 <div class="user_count">
-                                    <div class="follw_user ou">
-                                        <div class="cur_user oub">
-                                            <button>Follow</button>
-                                        </div>
-                                    </div>
 
                                     <div class="message_user ou">
                                         <div class="mess_u oub">
@@ -69,7 +64,6 @@
                                                         {% else %}
                                                         <div><p>This user has not set a bio yet.</p></div>
                                                         {% endif %}
-                                                        
                                                     </div>
                                                 </div>
                                             </li>
@@ -81,34 +75,10 @@
                                                     <div class="a_d">
                                                         <div class="user_d">
                                                             {% if profile.user %}
-                                                                <div>@{{profile.user.username}}</div>
+                                                                <div>@{{profile.user}}</div>
                                                                 {% else %}
                                                                 <p>You don't have a username ???</p>
                                                             {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="see">
-                                                    <div class="ui">
-                                                        <div>Followers </div>
-                                                    </div>
-                                                    <div class="a_d">
-                                                        <div class="user_d">
-                                                            16.1M
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="see">
-                                                    <div class="ui">
-                                                        <div>Following </div>
-                                                    </div>
-                                                    <div class="a_d">
-                                                        <div class="user_d">
-                                                            50
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,55 +96,83 @@
                                         </button>
                                     </div>
                                 </div>
-                                {% else %}
-                                <div></div>
                                 {% endif %}
                             </div>
                         </div>
                         
                     </div>
                 </div>
+
+
                 <div class="u_p">
                     <div class="my_posts">
                         <div class="my_posts_head">
-                            <div class="head" style="text-align : center; font-size : 2rem";>
-                                <h3>My POST</h3>
+                            <div class="head">
+                                <h3>MY POSTS</h3>
                             </div>
                         </div>
                         <div class="all-post">
                             <div class="posts_container">
-                                <div class="all_content">
-                                    <div class="all_grid">
-                                        {% for posts in user_posts %}
-                                        <div class="post_al">
-                                            <div class="post_wrap">
-                                                <div class="post_media">
-                                                    <div class="media">
-                                                        {% if posts.image %}
-                                                        <img src="{{ posts.image.url }}" alt="Post image">
-                                                        {% elif posts.video %}
-                                                        <video controls>
-                                                            <source src="{{ posts.video.url }}" type="video/mp4">
-                                                        </video>
-                                                        {% else %}
-                                                            <p>No media available.</p>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                        
-                                                {% if posts.content %}
-                                                    <div class="post_descc">
-                                                        <div class="desp">
-                                                            <span>{{posts.content}}</span>
+                                <div class="posts_tab">
+                                    <div class="posts_tabs_c">
+                                        <div class="tab">
+                                            <div>
+                                                <div class="tab-icon">
+                                                    <button>
+                                                        <div>
+                                                            <h3>Media</h3>
                                                         </div>
-                                                    </div>
-                                                    
-                                                {% endif %}
+                                                    </button>
+                                                </div>
+
+                                                <div class="tab-icon">
+                                                    <button>
+                                                        <div>
+                                                            <h3>Text Posts</h3>
+                                                        </div>
+                                                    </button>
+                                                </div>
                                             </div>
+                                            <ul class="tab_ul">
+                                                <li class="activeTab">
+                                                    <div class="all_content">
+                                                        <div class="all_grid">
+                                                            {% for posts in user_posts %}
+                                                            <div class="post_al">
+                                                                <div class="post_wrap">
+                                                                    <div class="post_media">
+                                                                        <div class="media" onclick="location.assign('/posts/feed/{{posts.id}}/view_post/')" >
+                                                                            {% if posts.image %}
+                                                                            <img src="{{ posts.image.url }}" alt="Post image">
+                                                                            {% elif posts.video %}
+                                                                            <video controls>
+                                                                                <source src="{{ posts.video.url }}" type="video/mp4">
+                                                                            </video>
+                                                                            {% elif posts.text_post %}
+                                                                            <div>HI</div>
+                                                                            {% else %}
+                                                                                <p>No media available.</p>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            {% empty %}
+                                                                <div>No posts available.</div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div> 
+                                                </li>
+
+                                                <li>
+                                                    <div>
+                                                        {% for post in text_posts  %}
+                                                        <div>{{post.text_post}}</div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        {% empty %}
-                                             <div>No posts available.</div>
-                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>

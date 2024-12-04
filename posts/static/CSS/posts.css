@@ -335,3 +335,70 @@ a{
 .post_text button:hover{
     background: #eee;
 }
+
+@media screen and (max-width:768px) {
+    .all-post{
+        padding: 0;
+    }
+    .posts_container, .optio_second, .upload, .post_al{
+        padding: 10px;
+    }
+
+    .all_p_con{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .grid-right{
+        display: none;
+    }
+
+    .media img, .media video{
+        height: 300px;
+    }
+
+    .onl_txt_b textarea{
+        height: 70px;
+    }
+
+    .upl_image button{
+        font-size: 1rem;
+    }
+
+
+    .upload_image_popup{
+        height: 100%;
+    }
+
+    .image_form{
+        padding: 10px;
+    }
+
+    .pop_image_container{
+        margin: 15px auto;
+    }
+
+    .i_pop_image_post_cont{
+        height: 200px;
+    }
+
+    .i_pop_cap textarea{
+        height: 60px;
+    }
+
+    .cancel{
+        padding: 25px;
+    }
+
+    .cancel button{
+        background: hsl(0, 100%, 50%);
+        padding: 7px;
+    }
+
+    .user_w_p_d_name{
+        font-size: 1rem;
+    }
+
+    .user_w_p_del, .uplo_options, .upload_user{
+        gap: 10px;
+    }
+}
