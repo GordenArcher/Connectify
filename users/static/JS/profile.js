@@ -1,8 +1,10 @@
 const edit_profile_button = document.querySelector(".edit_profile_button")
 
-edit_profile_button.addEventListener("click", () => {
-   document.location.pathname = location.pathname + "edit"
-})
+if(edit_profile_button){
+    edit_profile_button.addEventListener("click", () => {
+        document.location.pathname = location.pathname + "edit"
+     })
+}
 
 
 function showAlert( text ) {
@@ -38,20 +40,26 @@ function showAlert( text ) {
 // })
 
 const tabs = document.querySelectorAll(".tab_ul li")
-const tabButton = document.querySelectorAll(".tab-icon")
+const tabButton = document.querySelectorAll(".tab-icon button")
 
 tabButton.forEach((tab, index) => {
 
     tab.addEventListener("click", () => {
+
         const btn = tabs[index]
         if(btn){
             tabs.forEach((rm) => {
                 rm.classList.remove("activeTab")
             })
             btn.classList.add("activeTab")
+            
         }
+
+        tabButton.forEach((btn) => {
+            btn.classList.remove("active");
+        });
+        tab.classList.add("active");
         
     })
-
 
 })

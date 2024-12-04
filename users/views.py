@@ -93,12 +93,14 @@ def profile(request, username):
         profile_info = None
 
     my_posts = Posts.objects.filter(user=user).exclude(media__isnull=True).exclude(media="")
-    text_posts = Posts.objects.filter(user=user).exclude(text_post__isnull=True).exclude(text_post="") 
+    text_posts = Posts.objects.filter(user=user).exclude(text_post__isnull=True).exclude(text_post="")
+    friend_requests = FriendRequest.objects.filter(to_user=request.user, is_accepted=False) 
 
     context = {
         "user_posts" : my_posts,
         "profile": profile_info,
-        "text_posts":text_posts
+        "text_posts":text_posts,
+        'friend_requests': friend_requests
     }
 
     return render(request, 'profile.html', context)
@@ -166,7 +168,7 @@ def send_friend_request(request, user_id):
         FriendRequest.objects.create(from_user=request.user, to_user=to_user)
         messages.success(request, f"Friend request sent to {to_user.username}.")
 
-    return redirect('messages') 
+    return redirect('messages')
 
 
 @login_required

@@ -18,7 +18,7 @@
 
     {% include 'base/base.html' %}
     <div class="pop_edit">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" data-url="profile/{{user.username}}/save/" class="form_class" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="edit_profile_p">
                 <div class="post">
@@ -67,7 +67,7 @@
                                     <div class="edit_bio">
                                         <div class="e_a_b">
                                             <label for="bio"> Bio</label>
-                                            <textarea name="bio" id="bio" value={{user.profile.bio}}></textarea>
+                                            <textarea name="bio" id="bio">{{profile.bio}}</textarea>
                                         </div>
                                     </div>
                                 </li>
@@ -104,6 +104,6 @@
         </form>
     </div>
 
-    <script src={% static "JS/profile.js" %}></script>
+    <script src={% static "JS/edit.js" %}></script>
 </body>
 </html>

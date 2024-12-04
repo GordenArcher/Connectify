@@ -240,7 +240,6 @@ document.querySelector("#post_image").addEventListener("click", (e) => {
 })
 
 const imageInput = document.getElementById('image_post');
-const imagePreview = document.getElementById('image-preview');
 const main_image_display = document.querySelector(".main_image_display")
 
 imageInput.addEventListener('change', () => {

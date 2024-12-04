@@ -86,7 +86,7 @@
                             <div class="post_al">
                                 <div class="post_wrap">
                                     <div class="user_del">
-                                        <div class="user_w_p_del">
+                                        <div class="user_w_p_del" onclick="location.assign('/profile/@{{post.user.username}}/')">
                                             <div class="user_w_p_prof">
                                                 {% if post.user.profile.profile_picture %}
                                                 <img src="{{ post.user.profile.profile_picture.url }}" alt="{{ post.user }}' profile">
@@ -279,26 +279,31 @@
                                                 </div>
     
                                                 <div class="frie_options">
-                                                    <div class="opt_req">
-                                                        <div class="accept opt">
-                                                            <div class="frined_accept">
-                                                                <a href="{% url 'send_friend_request' user.id %}">
-                                                                    <button>
-                                                                        <i class="bi bi-check-circle"></i>
-                                                                    </button>
-                                                                </a>
+                                                    {% for friend_request in friend_requests %}
+                                                        {% if not friend_request.is_accepted %} 
+                                                            <div class="opt_req">
+                                                                <div class="accept opt">
+                                                                    <div class="frined_accept">
+                                                                        <button>
+                                                                            <span>Pending</span>
+                                                                            <i class="bi bi-hourglass-split"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <!-- <div class="decline opt">
-                                                            <div class="friend_decline">
-                                                                <a href="{% url 'reject_friend_request' user.id %}">
-                                                                    <button>
-                                                                        <i class="bi bi-x-circle"></i>
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div> -->
-                                                    </div>
+                                                        {% else %}
+                                                            <div class="opt_req">
+                                                                <div class="accept opt">
+                                                                    <div class="frined_accept">
+                                                                        <a href="{% url 'send_friend_request' user.id %}">
+                                                                            <button>
+                                                                                <i class="bi bi-check-circle"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>

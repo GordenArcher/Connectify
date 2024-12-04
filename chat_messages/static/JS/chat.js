@@ -44,64 +44,91 @@ socket.onopen = () => {
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data);
     console.log(data)
+    console.log(socket.readyState);
+
+    if (data.type === 'new_message_notification') {
+        console.log('New message notification received: ', data.notification);
+    }
     
     if (data.error) {
-        console.error(data.error);
-        return;
+        console.error(data.error)
+        return
     }
 
     const message = data.message;
     const sender = data.sender;
+    const media = data.media
     const recipient = data.recipient;
     const loggedInUser = data.loggedInUser;
-    console.log(loggedInUser, recipient)
+    console.log(recipient)
 
     const isSentByUser = sender === loggedInUser;
     console.log(isSentByUser)
 
     const chatWrapper = document.querySelector(".user_chat__wrapper");
+    const vieww = document.querySelector(".vieww span");
+    const numcount = document.querySelector(".numcount span")
+
+    if(recipient === loggedInUser){
+        vieww.textContent = message
+    }
 
     const messageDiv = document.createElement("div");
     messageDiv.classList.add(isSentByUser ? "user_chat_sent" : "user_chat_receive_wrapper");
 
-    const currentDateTime = new Date().toLocaleString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit' 
+    const currentDateTime = new Date().toLocaleString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
     });
 
-    const messageBox = `
+    let dis;
+
+    if(media){
+        dis = `<img src="${media}" />`
+    }else if(message){
+        dis = `<div>${message}</div>`
+    }
+
+    const messageTemplate = `
         ${isSentByUser ? `
-            <div class="user_chat_sender_box">
+            <div class="user_chat_sender_box chat-animation">
                 <div class="user_chat_sender_cont">
                     <div class="chat_inbox_send">
-                        <div class="user_chat_send">${message}</div>
+                        ${dis}
                     </div>
                 </div>
                 <div class="user_chat_send_name">
-                    <span class="send_">Sent at: ${currentDateTime}</span>
+                    <span class="send_">${currentDateTime}</span>
                 </div>
             </div>
         ` : `
-            <div class="user_chat_receive_box">
+            <div class="user_chat_receive_box chat-animation">
                 <div class="user_chat_receive_cont">
                     <div class="chat_inbox_receive">
-                        <div class="user_chat_receive">${message}</div>
+                        <div class="user_chat_receive">
+                            ${dis}
+                        </div>
                     </div>
                 </div>
                 <div class="user_chat_receiver_name">
-                    <span class="inbox"> ${currentDateTime}</span>
+                    <span class="inbox">${currentDateTime}</span>
                 </div>
             </div>
         `}
     `;
 
-    messageDiv.innerHTML = messageBox;
+    messageDiv.innerHTML = messageTemplate;
+
     chatWrapper.appendChild(messageDiv);
 
     chatWrapper.scrollTop = chatWrapper.scrollHeight;
+
+    const newMessage = chatWrapper.querySelector('.chat-animation:last-child');
+    if (newMessage) {
+        newMessage.addEventListener('animationend', () => {
+            newMessage.classList.remove('chat-animation');
+        });
+    }
 };
 
 
@@ -117,18 +144,89 @@ document.querySelector('emoji-picker').addEventListener('emoji-click', (event) =
 
 });
 
-document.getElementById("send_message").addEventListener("click", () => {
+const image_preview = document.querySelector("#media-prev")
+const media_choose = document.querySelector(".media_choose")
+const send_media = document.getElementById("send_media")
+
+send_media.addEventListener("change", () => {
+    const file = send_media.files[0]
+
+    if (file) {
+        const fileType = file.type;
+
+        if (fileType.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const mDiv = document.createElement('div')
+                mDiv.className = 'pre_i_s'
+                const sDiv = document.createElement('div')
+                sDiv.className = 'm_pre'
+                mDiv.appendChild(sDiv)
+                const mImage = document.createElement('img')
+                mImage.id = 'media-prev'
+                mImage.src = e.target.result;
+                sDiv.appendChild(mImage)
+                media_choose.appendChild(mDiv)
+            };
+            reader.readAsDataURL(file);
+        } else if (fileType.startsWith("video/")) {
+            const videoURL = URL.createObjectURL(file); 
+            videoPreview.src = videoURL;
+        } else {
+            alert("Unsupported file type. Please upload an image or video.");
+        }
+
+    }  
+})
+
+const send_message = () => {
     const sender_chat = document.getElementById("sender_chat");
+    const send_media = document.getElementById("send_media"); // Ensure this exists
 
-    const message = sender_chat.value
-
-    if(!message.trim()){
-        return showAlert("No message was entered")
+    if (!sender_chat || !send_media) {
+        return console.error("Required elements not found.");
     }
 
-    socket.send(JSON.stringify({
-        'message':message
-    }))
+    const textMessage = sender_chat.value.trim();
+    const file = send_media.files[0];
 
-    sender_chat.value = ""
+    console.log("Selected file:", file);
+
+    if (!textMessage && !file) {
+        return showAlert("No message or media was entered");
+    }
+
+    const messageData = {
+        message: textMessage || null,
+        media: null,
+    };
+
+    if (file) {
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            messageData.media = event.target.result;
+
+            socket.send(JSON.stringify(messageData));
+        };
+        reader.readAsDataURL(file);
+    } else {
+        socket.send(JSON.stringify(messageData));
+    }
+
+    // Clear the input fields
+    sender_chat.value = "";
+    send_media.value = ""; // Reset file input
+};
+
+
+document.getElementById("send_message").addEventListener("click", () => {
+    send_message()
 })  
+
+document.addEventListener("keypress", (e) => {
+    if(e.key === 'Enter'){
+        e.preventDefault()
+        send_message()
+    }
+})

@@ -129,7 +129,7 @@ transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .setting_gear button:hover, .user_chat_head_user_name button:hover, .chat_input_emoje button:hover,
-.user_chat_send button{
+.user_chat_send button:hover, .media_choose label:hover{
     background: hsla(0, 0%, 65%, 0.643);
 }
 

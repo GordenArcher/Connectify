@@ -23,7 +23,7 @@ const likebtn = document.getElementById("likebtn")
 const send_comment = document.getElementById("comment_on_post")
 
 back_button.addEventListener("click", () => {
-    location.pathname = "/posts/feed/"
+    history.go(-1)
 })
 
 likebtn.addEventListener('click', (event) => {

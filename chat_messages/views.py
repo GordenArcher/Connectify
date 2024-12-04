@@ -40,7 +40,11 @@ def chat_messages(request, username):
         'accepted_requests': accepted_requests,
         'users': all_users,
         'all_messages': all_messages,
-        'chat_user': user_n,  
+        "chat_user" : {
+        'id': user_n.id,
+        'username': user_n.username,
+        'email': user_n.email, 
+    }
     }
 
     return render(request, 'chat.html', context)
