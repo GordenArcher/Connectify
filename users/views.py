@@ -2,12 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import response
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from .models import Profile
 from posts.models import Posts
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .models import FriendRequest
+from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth import get_user_model
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 def register(request):
@@ -199,3 +207,104 @@ def reject_friend_request(request, request_id):
     messages.success(request, "Friend request rejected.")
 
     return redirect('messages')
+
+
+
+@login_required
+def delete_account(request):
+    user = request.user
+    
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, "Your account has been successfully deleted.")
+        return redirect('')
+
+    return render(request, 'delete_account.html', {'user': user})
+
+
+def request_password(request):
+    return render (request, 'request_password.html')
+
+
+
+def send_email(request):
+
+        
+    return render(request, 'request_password.html')  
+
+
+
+def send_request(request):
+    if request.method =='POST':
+        data = json.loads(request.body)
+        email = data.get("email")
+
+        user = User.objects.filter(email=email).first()
+
+        try:
+            if user:
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+
+                context = {
+                    'reset_url': f'https://127.0.0.1:8000/user/reset_password/{uid}/',
+                    'username': user.username,
+                    'message': "You forgot your password? No problem,"
+                }
+
+                html_message = render_to_string('change_password_email.html', context)
+                plain_message = strip_tags(html_message)
+                subject = "Reset Password"
+                from_email = "archergorden@gmail.com"
+                recipient_list = [email]
+
+                email_message = EmailMessage(subject, html_message, from_email, recipient_list)
+                email_message.content_subtype = "html"
+                email_message.send()
+
+                return JsonResponse({
+                    "status": "sucess",
+                    "message":"Email sent successfully."
+                    }, status=200)
+
+            else:
+                return JsonResponse({
+                    "status": "error",
+                    "message":f"{email} is not a user"
+                    }, status=400)
+
+        except Exception as e:
+            return JsonResponse({
+                "status":"error",
+                "message": f"Error sending email: {e}"
+                }, status=500)
+        
+    return JsonResponse({
+        "status":"error",
+        "message":"request is not valid"
+    })    
+
+
+
+def reset_password(request, uidb64):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = get_user_model().objects.get(pk=uid)
+
+        if request.method == 'POST':
+            password = request.data.get("password")
+            if not password:
+                return JsonResponse({"error": "Password is required."}, status=400)
+
+            user.set_password(password)
+            user.save()
+
+            return JsonResponse({
+                "message": "Password reset successful.",
+            }, status=201)
+
+    except Exception as e:
+        return JsonResponse({"error": f"Something occurred: {str(e)}. Please try again later."}, status=500)
+
+
+def email_sent(request):
+    return render(request, 'email_sent.html')

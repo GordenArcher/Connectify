@@ -2,6 +2,15 @@ const navigate = () => {
     document.location.pathname = "/"
 }
 
+const settings_pop = document.querySelector(".settings_pop")
+document.querySelector(".setting_gear button").addEventListener("click", () => {
+  settings_pop.classList.toggle("add_p")
+})
+
+document.querySelector(".cl").addEventListener('click', () => {
+  settings_pop.classList.remove("add_p")
+})
+
 function showAlert( text ) {
 
     Toastify({

@@ -9,7 +9,7 @@
 .engage, .post_uplod, .do_smth,.upload_user, .options_upload, .uplo_options, .option_first,
 .i_pop_wrap, .i_pop_image_display, .i_pop_image_post, .i_pop_image_post_cont label, .main_image_display,
 .i_pop_image_ccaption, #image-preview, #video-preview, .opt_req, 
-.friends_flesa, .user_del, .grid-right, .empt_fr_req{
+.friends_flesa, .user_del, .grid-right, .empt_fr_req, .settings_body, .sett{
     width: 100%;
     height: 100%;
 }
@@ -44,9 +44,13 @@ a{
     padding: 10px;
 }
 
+.numcount{
+    align-items: center;
+    justify-content: center;
+}
 
 .post_wrap, .all_p_flex, .uplo_options, .all_content, .i_pop_wrap, .i_pop_image_display, .new_friends,
-.grid-right, .fiends_req, .empt_fr_req_cont{
+.grid-right, .fiends_req, .empt_fr_req_cont, .friends_flesa{
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -96,9 +100,10 @@ a{
     gap: 20px;
 }
 
-.fri_reqa, .user_del{
+.user_del{
     justify-content: space-between;
 }
+
 
 .fl{
     gap: 12px;
@@ -335,6 +340,7 @@ a{
 .post_text button:hover{
     background: #eee;
 }
+
 
 @media screen and (max-width:768px) {
     .all-post{

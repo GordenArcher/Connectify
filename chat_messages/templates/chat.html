@@ -67,13 +67,11 @@
                     
                                                     <div class="messTime">
                                                         <div class="Timeset">
-                                                            <p>01 : 35</p>
+                                                            <p></p>
                                                         </div>
                     
                                                         <div class="messNum">
-                                                            <div class="numcount">
-                                                                <span>5</span>
-                                                            </div>
+                                                            <div class="numcount" style="display:none; "></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,8 +102,8 @@
                                 <div class="user_chat_head_wrap">
                                     <div class="user_chat_head_wrap_">
                                         <div class="user_chat_head_wrap_image">
-                                            {% if chat_user.profile.profile_picture %}
-                                            <img src="{{ chat_user.profile.profile_picture.url }}" alt="{{accept_request.from_user.username }}'s profile picture" />
+                                            {% if chat_user.profile %}
+                                            <img src="{{ chat_user.profile }}" alt="{{accept_request.from_user.username }}'s profile picture" />
                                             {% else %}
                                             <img src="{% static "images/avatar-4.png" %}" alt="{{accepted_requests.from_user.username }}'s profile picture" />
                                             {% endif %}
@@ -118,7 +116,7 @@
 
                                             <div class="user_chat_head_last_status">
                                                 <div class="user_chat_head_user_ls">
-                                                    <span class="_status_">Last seen 2:55 pm</span>
+                                                    <span id="status-indicator"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -200,12 +198,6 @@
                                                 <label for='send_media'>
                                                         <i class="bi bi-images"></i>
                                                 </label>
-
-                                                {% comment %} <div class="pre_i_s">
-                                                    <div class="m_pre">
-                                                        <img alt="media preview" id="media-prev" />
-                                                    </div>
-                                                </div> {% endcomment %}
                                                 
                                             </div>
 
@@ -336,17 +328,6 @@
                                                         </div>
                                                     </div> {% endcomment %}
                                                     <div class="opt_req">
-                                                        {% if user.friend_request.is_accepted %}
-                                                        <div class="accept opt">
-                                                            <div class="frined_accept">
-                                                                <div>
-                                                                    <button disabled>
-                                                                        Friends
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {% else %}
                                                         <div class="accept opt">
                                                             <div class="frined_accept">
                                                                 <a href="{% url 'send_friend_request' user.id %}">
@@ -365,7 +346,6 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>

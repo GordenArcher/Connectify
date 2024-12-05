@@ -113,11 +113,12 @@ transition: color 0.3s ease, transform 0.3s ease;
     color: hsl(0, 0%, 100%);
 }
 
-.setting_gear span{
+.setting_gear span, .notification_gear span{
     font-size: 1.2rem;
 }
 
-.setting_gear button, .user_chat_head_user_name button, .chat_input_emoje button, .user_chat_send button{
+.setting_gear button, .notification_gear button, .user_chat_head_user_name button, 
+.chat_input_emoje button, .user_chat_send button, .cl button{
     background: transparent;
     font-size: 1.7rem;
     width: 50px;
@@ -128,9 +129,18 @@ transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
-.setting_gear button:hover, .user_chat_head_user_name button:hover, .chat_input_emoje button:hover,
-.user_chat_send button:hover, .media_choose label:hover{
+.setting_gear button:hover, .notification_gear button:hover, .user_chat_head_user_name button:hover, .chat_input_emoje button:hover,
+.user_chat_send button:hover, .media_choose label:hover, .cl button:hover{
     background: hsla(0, 0%, 65%, 0.643);
+}
+
+.cl{
+    position: absolute;
+    right: 20px;
+}
+
+.cl button i{
+    color: hsl(0, 100%, 50%);
 }
 
 @media (max-width: 768px) {
@@ -240,6 +250,73 @@ transition: color 0.3s ease, transform 0.3s ease;
     0%   { transform: scale(1); }
     90%   { transform: scale(1.2); }
     100% { transform: scale(1.1); }
+}
+
+
+.settings_pop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: hsla(0, 0%, 0%, 0.464);
+    z-index: 9;
+    display: none;
+}
+
+.settings{
+    position: relative;
+    max-width: 500px;
+    background: hsl(0, 0%, 100%);
+    margin: 150px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.settings_head{
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.sett ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+
+.sett ul li a{
+    color: hsla(241, 97%, 24%);
+    font-size: 1.2rem;
+    display: block;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.sett ul li a:hover{
+    background: hsla(0, 0%, 56%, 0.624);
+}
+
+.sett ul li a .d i{
+    color: hsla(241, 97%, 24%, 0.582);
+}
+
+.logout{
+    color: hsl(0, 100%, 50%);
+}
+
+.g{
+    color: hsl(0, 100%, 50%);
+}
+
+.g i{
+    color: hsl(0, 100%, 50%);
+}
+
+.add_p{
+    display: initial;
 }
 
 @media screen and (max-width:786px) {

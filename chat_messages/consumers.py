@@ -3,6 +3,7 @@ from asgiref.sync import sync_to_async
 import json
 from django.contrib.auth import get_user_model
 from django.utils.timezone import now
+
 from .models import Messages
 from django.core.files.base import ContentFile
 import base64
@@ -66,7 +67,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'media': message_obj.media.url if message_obj.media else None,
                 'sender': self.sender.username,
                 'recipient': recipient.username,
-                'message_id': message_obj.id
+                'message_id': message_obj.id,
+                'timestamp': message_obj.sent_at.isoformat(),
             }
         )
 
@@ -74,6 +76,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def chat_message(self, event):
         self.message_count += 1
+
+        notification_data = {
+            'message': event['message'],
+            'message_id': event['message_id'],
+            'media': event.get('media'),
+            'sender': event['sender'],
+        }
+        
         await self.send(text_data=json.dumps({
             'message': event['message'],
             'media': event.get('media'),
@@ -81,6 +91,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'recipient': event['recipient'],
             'loggedInUser': self.sender.username,
             'incomingMessageCount': self.message_count, 
+            'notification': notification_data,
         }))
 
     @sync_to_async

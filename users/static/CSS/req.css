@@ -1,0 +1,311 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  
+  .login, .login_wrapper, .login_left, .message, .login_right, .auth_wrapper,
+  .login_auth, .left_image, .form_, .submit, .v, .left_wrap, .password_request,
+  .request_wrapper, .right_wrapper, .sent_request, .request_form, .email-done,
+  .password_reset, .reset_password, .upload_data, .upload_wrapper, 
+  .upload_right_wrapper, .upload_form, .upload_auth, .upload_auth form, 
+  .form_, .upload_input_image, .app-wrapper, .app_content{
+    width: 100%;
+    height: 100%;
+  
+  }
+  
+  .login, .password_request, .padd, .reset, .upload_data{
+    padding: 40px;
+  }
+  
+  .em{
+    position: absolute;
+    padding: 20px;
+  }
+  
+  .em button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .em button i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: hsl(241, 97%, 24%);
+    transition: all .3s ease;
+  }
+  
+  .em button:hover{
+    background: hsl(241, 97%, 24%);
+  }
+  
+  .em button:hover i{
+    color: hsl(0, 0%, 100%);
+  }
+  
+  .line{
+    background: hsl(241, 97%, 24%);
+    width: 4px;
+    height: 100%;
+  }
+  
+  .auth_wrapper, .form_, .right_wrapper, .email-done .padd, .reset{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    position: relative;
+  }
+  
+  .login_left{
+    position: relative;
+  }
+  
+  .left_wrap, .request_form, .form_, .upload_input, .upload_left_wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .left_image img, .upload_left_image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+  }
+  
+  .left_image img{
+    width: 80%;
+  }
+  
+  .reset_left_image img{
+    width: 100%;
+    height: 100%;
+  }
+  
+  .message{
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: hsl(0, 0%, 0%);
+    /* padding-top: 70px; */
+  }
+  
+  .auth_head{
+    font-size: 1.5rem;
+    color: #00000065;
+  }
+  
+  .login_auth{
+    margin-top: 20px;
+  }
+  
+  .login_right{
+    border-radius: 6px;
+  }
+  
+  .form_{
+    gap: 30px;
+  }
+  
+  .viewpassword{
+    position: relative;
+    gap: 10px;
+  }
+  
+  .slide label{
+    width: 58px;
+    height: 28px;
+    background: hsla(0, 0%, 85%, 0.32);
+    border: none;
+    border-radius: 30px;
+    transition: all .4s ease;
+    cursor: pointer;
+    display: block;
+    position: relative;
+  }
+  
+  .slide label::after{
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: hsl(241, 97%, 24%);
+    transition: all .4s ease;
+  }
+  
+  .slide input:checked ~ label::after{
+    left: 32px;
+    background: hsl(0, 0%, 100%);
+  }
+  
+  .slide input:checked ~ label{
+    background: hsl(241, 97%, 24%);
+  }
+  
+  .form_input, .request_form_input, .upload_input{
+    position: relative;
+  }
+  
+  .form_input label, .request_form_input label, .desck label{
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: 800;
+  }
+  
+  .form_input input, .request_form_input input, .desck input{
+    width: 100%;
+    height: 55px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    padding: 10px 60px 10px 10px;
+    color: hsl(241, 97%, 24%);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 10px;
+    background: transparent;
+    transition: all .3s ease;
+  }
+  
+  .form_input input:focus, .request_form_input input:focus, .desck input:focus{
+    border: 1px solid hsl(241, 97%, 24%);
+  }
+  
+  .form_input button, .request_form_input button{
+    position: absolute;
+    right: 10px;
+    margin-top: 20px;
+    background: transparent;
+    color: hsl(241, 97%, 24%);
+  }
+  
+  .desck button{
+    position: absolute;
+    right: 10px;
+    margin-top: 70px;
+    background: transparent;
+    color: hsl(241, 97%, 24%);
+  }
+  
+  .submit button, .sent_request button, .upload_button button{
+    width: 100%;
+    height: 50px;
+    font-size: 1.3rem;
+    background: hsl(241, 97%, 24%);
+    border: none;
+    border-radius: 6px;
+    color: hsl(0, 0%, 100%);
+    cursor: pointer;
+  }
+  
+  
+  .request_wrapper{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .right_mess{
+    font-size: .8rem;
+  }
+  
+  .email-done .padd{
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .v{
+    background: hsl(0, 0%, 100%);
+  }
+  
+  @media screen and (max-width:786px) {
+  
+    .login{
+      padding: 20px;
+    }
+  
+    .login_wrapper, .upload_wrapper, .request_wrapper{
+      flex-direction: column;
+    }
+  
+    .left_image{
+      text-align: center;
+    }
+  
+    .left_image img{
+      width: 30%;
+    }
+  
+    .line{
+      width: 100%;
+      height: 3px;
+    }
+  
+    .message{
+      font-size: 1rem;
+    }
+  
+    .right_mess{
+      font-size: .7rem;
+    }
+  
+    .auth_wrapper, .form_{
+      gap: 20px;
+    }
+  
+    .auth_head{
+      font-size: 1.1rem;
+    }
+  
+    .login_auth{
+      margin-top: 20px;
+    }
+    
+    .login_right{
+      padding: 10px;
+    }
+  
+    .fpass, .s-text{
+      font-size: .7rem;
+    }
+  
+    .slide label{
+      width: 38px;
+      height: 22px;
+    }
+  
+    .slide label::after{
+      width: 18px;
+      height: 18px;
+    }
+  
+    .slide input:checked ~ label::after{
+      left: 18px;
+      background: hsl(0, 0%, 100%);
+    }
+  
+    .u{
+      margin-bottom: 80px;
+    }
+  
+    .em{
+      padding: 10px;
+    }
+  
+    .password_request{
+      padding: 20px;
+    }
+  }
+  

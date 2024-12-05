@@ -43,7 +43,8 @@ def chat_messages(request, username):
         "chat_user" : {
         'id': user_n.id,
         'username': user_n.username,
-        'email': user_n.email, 
+        'email': user_n.email,
+        'profile': user_n.profile.profile_picture.url
     }
     }
 

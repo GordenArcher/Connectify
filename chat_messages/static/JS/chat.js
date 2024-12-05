@@ -37,7 +37,14 @@ const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
 const socket = new WebSocket(`ws://${window.location.host}/ws/messages/chat/${roomName}/`)
 
+
+function getLastMessageId() {
+    return localStorage.getItem('lastMessageId') || null;
+}
+
+
 socket.onopen = () => {
+    socket.send(JSON.stringify({ type: 'sync', lastReceivedMessageId: getLastMessageId() }));
     console.log("websocket opened")
 }
 
@@ -67,7 +74,12 @@ socket.onmessage = (e) => {
 
     const chatWrapper = document.querySelector(".user_chat__wrapper");
     const vieww = document.querySelector(".vieww span");
-    const numcount = document.querySelector(".numcount span")
+    const numcount = document.querySelector(".numcount")
+
+    if(isSentByUser == false){
+        numcount.style.display = 'flex'
+        numcount.textContent = data.incomingMessageCount
+    }
 
     if(recipient === loggedInUser){
         vieww.textContent = message
@@ -80,6 +92,9 @@ socket.onmessage = (e) => {
         hour: '2-digit',
         minute: '2-digit',
     });
+
+    const Timeset = document.querySelector(".Timeset p")
+    Timeset.textContent = currentDateTime
 
     let dis;
 
@@ -230,3 +245,18 @@ document.addEventListener("keypress", (e) => {
         send_message()
     }
 })
+
+function updateStatusIndicator() {
+    const statusIndicator = document.getElementById('status-indicator');
+    if (navigator.onLine) {
+        statusIndicator.textContent = 'Online';
+        statusIndicator.style.color = 'green';
+    } else {
+        statusIndicator.textContent = 'Offline';
+        statusIndicator.style.color = 'red';
+    }
+}
+
+window.addEventListener('online', updateStatusIndicator);
+window.addEventListener('offline', updateStatusIndicator);
+updateStatusIndicator();

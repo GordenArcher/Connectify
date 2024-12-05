@@ -279,31 +279,16 @@
                                                 </div>
     
                                                 <div class="frie_options">
-                                                    {% for friend_request in friend_requests %}
-                                                        {% if not friend_request.is_accepted %} 
-                                                            <div class="opt_req">
-                                                                <div class="accept opt">
-                                                                    <div class="frined_accept">
-                                                                        <button>
-                                                                            <span>Pending</span>
-                                                                            <i class="bi bi-hourglass-split"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        {% else %}
-                                                            <div class="opt_req">
-                                                                <div class="accept opt">
-                                                                    <div class="frined_accept">
-                                                                        <a href="{% url 'send_friend_request' user.id %}">
-                                                                            <button>
-                                                                                <i class="bi bi-check-circle"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            {% endif %}
-                                                    {% endfor %}
+                                                <div class="opt_req">
+                                                    <div class="accept opt">
+                                                        <div class="frined_accept">
+                                                            <a href="{% url 'send_friend_request' user.id %}">
+                                                                <button>
+                                                                    <i class="bi bi-check-circle"></i>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -52,6 +52,10 @@
     position: relative;
 }
 
+.p_t{
+    font-size: 1.4rem;
+}
+
 ._view_l_med img, ._view_l_med video{
     width: 60%;
     height: 100%;

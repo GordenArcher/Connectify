@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={% static "CSS/req.css" %}>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <title>Connectify . Request Password</title>
+</head>
+<body>
+
+    <div class='email-done'>
+        <div class="padd">
+            <div class="mail-sent">
+                <img src="{% static "images/done-email.svg" %}" alt="mail sent" />
+            </div>
+
+            <div class="sent_mess">
+                <h2>check your mail to reset your password...</h2>
+            </div>
+        </div>
+    </div>
+
+
+<script src="{% static "JS/req.js" %}" ></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>

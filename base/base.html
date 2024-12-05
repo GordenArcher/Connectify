@@ -76,13 +76,67 @@
                         <div class="side_bottom">
                             <div class="side_bottom_wrap">
                                 <div class="side_botton_settings">
-                                    <div class="setting_gear">
+                                    <div class="notification_gear">
                                         <button>
                                             <i class="bi bi-bell"></i>
                                         </button>
 
                                         <div class="not_count">
-                                            {{user.messages.received_requests}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="side_botton_settings">
+                                    <div class="setting_gear">
+                                        <button>
+                                            <i class="bi bi-gear"></i>
+                                        </button>
+
+                                        <div class="not_count">
+                                        </div>
+                                    </div>
+
+                                    <div class="settings_pop">
+                                        <div class="settings">
+                                            <div class="cl">
+                                                <button>
+                                                    <i class="bi bi-x-circle"></i>
+                                                </button>
+                                            </div>
+                                            <div class="settings_head">
+                                                <h2>Settings</h2>
+                                            </div>
+
+                                            <div class="settings_body">
+                                                <div class="sett">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="{% url 'profile' request.user %}">
+                                                                <div class="p_del d">
+                                                                    <i class="bi bi-person"></i>
+                                                                    Personal Details
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'delete_account' %}">
+                                                                <div class="c_emal g">
+                                                                    <i class="bi bi-trash"></i>
+                                                                    <span>Delete My Account</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'logout' %}">
+                                                                <div class="logout g">
+                                                                    <i class="bi bi-trash-fill"></i>
+                                                                    <span>Logout</span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
